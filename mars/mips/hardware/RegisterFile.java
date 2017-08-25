@@ -47,24 +47,44 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       public static final int STACK_POINTER_REGISTER = 29;
    
       private static Register [] regFile = 
-          { new Register("$zero", 0, 0), new Register("$at", 1, 0),
-         	new Register("$v0", 2, 0),new Register("$v1", 3, 0),
-         	new Register("$a0", 4, 0),new Register("$a1", 5, 0),
-         	new Register("$a2", 6, 0),new Register("$a3", 7, 0),
-         	new Register("$t0", 8, 0),new Register("$t1", 9, 0),
-         	new Register("$t2", 10, 0),new Register("$t3", 11, 0), 
-         	new Register("$t4", 12, 0),new Register("$t5", 13, 0),
-         	new Register("$t6", 14, 0),new Register("$t7", 15, 0),
-         	new Register("$s0", 16, 0),new Register("$s1", 17, 0),
-         	new Register("$s2", 18, 0),new Register("$s3", 19, 0),
-         	new Register("$s4", 20, 0),new Register("$s5", 21, 0),
-         	new Register("$s6", 22, 0),new Register("$s7", 23, 0),
-         	new Register("$t8", 24, 0),new Register("$t9", 25, 0),
-         	new Register("$k0", 26, 0),new Register("$k1", 27, 0),
-         	new Register("$gp", GLOBAL_POINTER_REGISTER, Memory.globalPointer),
-         	new Register("$sp", STACK_POINTER_REGISTER, Memory.stackPointer),
-         	new Register("$fp", 30, 0),new Register("$ra", 31, 0)
+          { new Register("X0", 0, 0),new Register("X1", 1, 0),
+         	new Register("X2", 2, 0),new Register("X3", 3, 0),
+         	new Register("X4", 4, 0),new Register("X5", 5, 0),
+         	new Register("X6", 6, 0),new Register("X7", 7, 0),
+         	new Register("X8", 8, 0),new Register("X9", 9, 0),
+         	new Register("X10", 10, 0),new Register("X11", 11, 0), 
+         	new Register("X12", 12, 0),new Register("X13", 13, 0),
+         	new Register("X14", 14, 0),new Register("X15", 15, 0),
+         	new Register("X16", 16, 0),new Register("X17", 17, 0),
+         	new Register("X18", 18, 0),new Register("X19", 19, 0),
+         	new Register("X20", 20, 0),new Register("X21", 21, 0),
+         	new Register("X22", 22, 0),new Register("X23", 23, 0),
+         	new Register("X24", 24, 0),new Register("X25", 25, 0),
+         	new Register("X26", 26, 0),new Register("X27", 27, 0),
+         	new Register("X28", STACK_POINTER_REGISTER, Memory.stackPointer),
+         	new Register("X29", GLOBAL_POINTER_REGISTER, Memory.globalPointer),
+         	new Register("X30", 30, 0),new Register("XZR", 31, 0)
            };
+//		Saving for easy comparison TODO: delete
+//      private static Register [] regFile = 
+//          { new Register("$zero", 0, 0), new Register("$at", 1, 0),
+//         	new Register("$v0", 2, 0),new Register("$v1", 3, 0),
+//         	new Register("$a0", 4, 0),new Register("$a1", 5, 0),
+//         	new Register("$a2", 6, 0),new Register("$a3", 7, 0),
+//         	new Register("$t0", 8, 0),new Register("$t1", 9, 0),
+//         	new Register("$t2", 10, 0),new Register("$t3", 11, 0), 
+//         	new Register("$t4", 12, 0),new Register("$t5", 13, 0),
+//         	new Register("$t6", 14, 0),new Register("$t7", 15, 0),
+//         	new Register("$s0", 16, 0),new Register("$s1", 17, 0),
+//         	new Register("$s2", 18, 0),new Register("$s3", 19, 0),
+//         	new Register("$s4", 20, 0),new Register("$s5", 21, 0),
+//         	new Register("$s6", 22, 0),new Register("$s7", 23, 0),
+//         	new Register("$t8", 24, 0),new Register("$t9", 25, 0),
+//         	new Register("$k0", 26, 0),new Register("$k1", 27, 0),
+//         	new Register("$gp", GLOBAL_POINTER_REGISTER, Memory.globalPointer),
+//         	new Register("$sp", STACK_POINTER_REGISTER, Memory.stackPointer),
+//         	new Register("$fp", 30, 0),new Register("$ra", 31, 0)
+//           };
          												  
       private static Register programCounter= new Register("pc", 32, Memory.textBaseAddress); 
       private static Register hi= new Register("hi", 33, 0);//this is an internal register with arbitrary number
