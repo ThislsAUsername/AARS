@@ -83,7 +83,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          this.basicAssemblyStatement = null;
          this.basicStatementList = new BasicStatementList();
          this.machineStatement = null;
-         this.binaryStatement = 0;  // nop, or sll $0, $0, 0  (32 bits of 0's)
+         this.binaryStatement = 0;  // nop, or sll X0, X0, 0  (32 bits of 0's)
          this.altered = false;
       }
    
@@ -183,7 +183,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             } 
             else if (tokenType == TokenTypes.REGISTER_NAME) {
                registerNumber = RegisterFile.getNumber(tokenValue);
-               basicStatementElement = "$" + registerNumber;
+               basicStatementElement = "X" + registerNumber;
                basic += basicStatementElement;
                basicStatementList.addString(basicStatementElement);
                if (registerNumber < 0) {
@@ -195,7 +195,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             } 
             else if (tokenType == TokenTypes.FP_REGISTER_NAME) {
                registerNumber = Coprocessor1.getRegisterNumber(tokenValue);
-               basicStatementElement = "$f" + registerNumber;
+               basicStatementElement = "Xf" + registerNumber;
                basic += basicStatementElement;
                basicStatementList.addString(basicStatementElement);
                if (registerNumber < 0) {
@@ -626,7 +626,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   statementList.addString(")");
                }
                else if (tokenType.toString().contains("REGISTER")) {
-                  String marker = (tokenType.toString().contains("FP_REGISTER")) ? "$f" : "$";
+                  String marker = (tokenType.toString().contains("FP_REGISTER")) ? "Xf" : "X";
                   statementList.addString(marker+operands[i]);
                   notOperand = false;
                }

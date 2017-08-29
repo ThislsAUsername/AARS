@@ -518,13 +518,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                try { // if token is a RegisterFile register, substitute next higher register
                   regNumber = RegisterFile.getUserRegister(token).getNumber();
                   if (regNumber>=0) {
-                     instruction = substitute(instruction, "NR"+op,"$"+(regNumber+1));
+                     instruction = substitute(instruction, "NR"+op,"X"+(regNumber+1));
                   } 
                }
                    catch (NullPointerException e) { // not in RegisterFile, must be Coprocessor1 register
                      regNumber = Coprocessor1.getRegisterNumber(token);
                      if (regNumber>=0) {
-                        instruction = substitute(instruction, "NR"+op,"$f"+(regNumber+1));
+                        instruction = substitute(instruction, "NR"+op,"Xf"+(regNumber+1));
                      }
                   }
             }			   

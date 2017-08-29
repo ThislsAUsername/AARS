@@ -62,7 +62,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          	new Register("X24", 24, 0),new Register("X25", 25, 0),
          	new Register("X26", 26, 0),new Register("X27", 27, 0),
          	new Register("X28", STACK_POINTER_REGISTER, Memory.stackPointer),
-         	new Register("X29", GLOBAL_POINTER_REGISTER, Memory.globalPointer),
+         	new Register("X29", 29, 0),
          	new Register("X30", 30, 0),new Register("XZR", 31, 0)
            };
 //		Saving for easy comparison TODO: delete
@@ -212,7 +212,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    	
        public static Register getUserRegister(String Rname) {
          Register reg = null;
-         if (Rname.charAt(0) == '$') {
+         if (Rname.charAt(0) == 'X') {
             try {
                    // check for register number 0-31.
                reg = regFile[Binary.stringToInt(Rname.substring(1))];    // KENV 1/6/05

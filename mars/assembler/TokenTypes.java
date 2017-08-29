@@ -141,6 +141,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                return TokenTypes.REGISTER_NUMBER;
       
        // See if it is a floating point register
+         //TODO: see if this is still needed/relevant
        
          reg = Coprocessor1.getRegister(value);
          if (reg != null)

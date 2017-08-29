@@ -91,8 +91,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("add $t1,$t2,$t3",
-            	 "Addition with overflow : set $t1 to ($t2 plus $t3)",
+                new BasicInstruction("add X1,X2,X3",
+            	 "Addition with overflow : set X1 to (X2 plus X3)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100000",
                 new SimulationCode()
@@ -114,8 +114,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub $t1,$t2,$t3",
-            	 "Subtraction with overflow : set $t1 to ($t2 minus $t3)",
+                new BasicInstruction("sub X1,X2,X3",
+            	 "Subtraction with overflow : set X1 to (X2 minus X3)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100010",
                 new SimulationCode()
@@ -137,8 +137,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("addi $t1,$t2,-100",
-            	 "Addition immediate with overflow : set $t1 to ($t2 plus signed 16-bit immediate)",
+                new BasicInstruction("addi X1,X2,-100",
+            	 "Addition immediate with overflow : set X1 to (X2 plus signed 16-bit immediate)",
                 BasicInstructionFormat.I_FORMAT,
                 "001000 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -160,8 +160,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("addu $t1,$t2,$t3",
-            	 "Addition unsigned without overflow : set $t1 to ($t2 plus $t3), no overflow",
+                new BasicInstruction("addu X1,X2,X3",
+            	 "Addition unsigned without overflow : set X1 to (X2 plus X3), no overflow",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100001",
                 new SimulationCode()
@@ -175,8 +175,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("subu $t1,$t2,$t3",
-            	 "Subtraction unsigned without overflow : set $t1 to ($t2 minus $t3), no overflow",
+                new BasicInstruction("subu X1,X2,X3",
+            	 "Subtraction unsigned without overflow : set X1 to (X2 minus X3), no overflow",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100011",
                 new SimulationCode()
@@ -190,8 +190,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("addiu $t1,$t2,-100",
-            	 "Addition immediate unsigned without overflow : set $t1 to ($t2 plus signed 16-bit immediate), no overflow",
+                new BasicInstruction("addiu X1,X2,-100",
+            	 "Addition immediate unsigned without overflow : set X1 to (X2 plus signed 16-bit immediate), no overflow",
                 BasicInstructionFormat.I_FORMAT,
                 "001001 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -205,8 +205,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mult $t1,$t2",
-            	 "Multiplication : Set hi to high-order 32 bits, lo to low-order 32 bits of the product of $t1 and $t2 (use mfhi to access hi, mflo to access lo)",
+                new BasicInstruction("mult X1,X2",
+            	 "Multiplication : Set hi to high-order 32 bits, lo to low-order 32 bits of the product of X1 and X2 (use mfhi to access hi, mflo to access lo)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 011000",
                 new SimulationCode()
@@ -222,8 +222,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("multu $t1,$t2",
-            	 "Multiplication unsigned : Set HI to high-order 32 bits, LO to low-order 32 bits of the product of unsigned $t1 and $t2 (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("multu X1,X2",
+            	 "Multiplication unsigned : Set HI to high-order 32 bits, LO to low-order 32 bits of the product of unsigned X1 and X2 (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 011001",
                 new SimulationCode()
@@ -239,8 +239,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mul $t1,$t2,$t3",
-            	 "Multiplication without overflow  : Set HI to high-order 32 bits, LO and $t1 to low-order 32 bits of the product of $t2 and $t3 (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("mul X1,X2,X3",
+            	 "Multiplication without overflow  : Set HI to high-order 32 bits, LO and X1 to low-order 32 bits of the product of X2 and X3 (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "011100 sssss ttttt fffff 00000 000010",
                 new SimulationCode()
@@ -258,8 +258,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("madd $t1,$t2",
-            	 "Multiply add : Multiply $t1 by $t2 then increment HI by high-order 32 bits of product, increment LO by low-order 32 bits of product (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("madd X1,X2",
+            	 "Multiply add : Multiply X1 by X2 then increment HI by high-order 32 bits of product, increment LO by low-order 32 bits of product (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "011100 fffff sssss 00000 00000 000000",
                 new SimulationCode()
@@ -278,8 +278,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("maddu $t1,$t2",
-            	 "Multiply add unsigned : Multiply $t1 by $t2 then increment HI by high-order 32 bits of product, increment LO by low-order 32 bits of product, unsigned (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("maddu X1,X2",
+            	 "Multiply add unsigned : Multiply X1 by X2 then increment HI by high-order 32 bits of product, increment LO by low-order 32 bits of product, unsigned (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "011100 fffff sssss 00000 00000 000001",
                 new SimulationCode()
@@ -298,8 +298,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("msub $t1,$t2",
-            	 "Multiply subtract : Multiply $t1 by $t2 then decrement HI by high-order 32 bits of product, decrement LO by low-order 32 bits of product (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("msub X1,X2",
+            	 "Multiply subtract : Multiply X1 by X2 then decrement HI by high-order 32 bits of product, decrement LO by low-order 32 bits of product (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "011100 fffff sssss 00000 00000 000100",
                 new SimulationCode()
@@ -318,8 +318,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("msubu $t1,$t2",
-            	 "Multiply subtract unsigned : Multiply $t1 by $t2 then decrement HI by high-order 32 bits of product, decement LO by low-order 32 bits of product, unsigned (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("msubu X1,X2",
+            	 "Multiply subtract unsigned : Multiply X1 by X2 then decrement HI by high-order 32 bits of product, decement LO by low-order 32 bits of product, unsigned (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "011100 fffff sssss 00000 00000 000101",
                 new SimulationCode()
@@ -338,8 +338,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("div $t1,$t2",
-            	 "Division with overflow : Divide $t1 by $t2 then set LO to quotient and HI to remainder (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("div X1,X2",
+            	 "Division with overflow : Divide X1 by X2 then set LO to quotient and HI to remainder (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 011010",
                 new SimulationCode()
@@ -365,8 +365,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("divu $t1,$t2",
-            	 "Division unsigned without overflow : Divide unsigned $t1 by $t2 then set LO to quotient and HI to remainder (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("divu X1,X2",
+            	 "Division unsigned without overflow : Divide unsigned X1 by X2 then set LO to quotient and HI to remainder (use mfhi to access HI, mflo to access LO)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 011011",
                 new SimulationCode()
@@ -389,8 +389,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mfhi $t1", 
-            	 "Move from HI register : Set $t1 to contents of HI (see multiply and divide operations)",
+                new BasicInstruction("mfhi X1", 
+            	 "Move from HI register : Set X1 to contents of HI (see multiply and divide operations)",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 00000 fffff 00000 010000",
                 new SimulationCode()
@@ -403,8 +403,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mflo $t1", 
-            	 "Move from LO register : Set $t1 to contents of LO (see multiply and divide operations)",
+                new BasicInstruction("mflo X1", 
+            	 "Move from LO register : Set X1 to contents of LO (see multiply and divide operations)",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 00000 fffff 00000 010010",
                 new SimulationCode()
@@ -417,8 +417,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mthi $t1", 
-            	 "Move to HI registerr : Set HI to contents of $t1 (see multiply and divide operations)",
+                new BasicInstruction("mthi X1", 
+            	 "Move to HI registerr : Set HI to contents of X1 (see multiply and divide operations)",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff 00000 00000 00000 010001",
                 new SimulationCode()
@@ -431,8 +431,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mtlo $t1", 
-            	 "Move to LO register : Set LO to contents of $t1 (see multiply and divide operations)",
+                new BasicInstruction("mtlo X1", 
+            	 "Move to LO register : Set LO to contents of X1 (see multiply and divide operations)",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff 00000 00000 00000 010011",
                 new SimulationCode()
@@ -445,8 +445,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("and $t1,$t2,$t3",
-            	 "Bitwise AND : Set $t1 to bitwise AND of $t2 and $t3",
+                new BasicInstruction("and X1,X2,X3",
+            	 "Bitwise AND : Set X1 to bitwise AND of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100100",
                 new SimulationCode()
@@ -460,8 +460,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("or $t1,$t2,$t3",
-            	 "Bitwise OR : Set $t1 to bitwise OR of $t2 and $t3",
+                new BasicInstruction("or X1,X2,X3",
+            	 "Bitwise OR : Set X1 to bitwise OR of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100101",
                 new SimulationCode()
@@ -475,8 +475,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("andi $t1,$t2,100",
-            	 "Bitwise AND immediate : Set $t1 to bitwise AND of $t2 and zero-extended 16-bit immediate",
+                new BasicInstruction("andi X1,X2,100",
+            	 "Bitwise AND immediate : Set X1 to bitwise AND of X2 and zero-extended 16-bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "001100 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -491,8 +491,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("ori $t1,$t2,100",
-            	 "Bitwise OR immediate : Set $t1 to bitwise OR of $t2 and zero-extended 16-bit immediate",
+                new BasicInstruction("ori X1,X2,100",
+            	 "Bitwise OR immediate : Set X1 to bitwise OR of X2 and zero-extended 16-bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "001101 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -507,8 +507,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("nor $t1,$t2,$t3",
-            	 "Bitwise NOR : Set $t1 to bitwise NOR of $t2 and $t3",
+                new BasicInstruction("nor X1,X2,X3",
+            	 "Bitwise NOR : Set X1 to bitwise NOR of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100111",
                 new SimulationCode()
@@ -522,8 +522,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("xor $t1,$t2,$t3",
-            	 "Bitwise XOR (exclusive OR) : Set $t1 to bitwise XOR of $t2 and $t3",
+                new BasicInstruction("xor X1,X2,X3",
+            	 "Bitwise XOR (exclusive OR) : Set X1 to bitwise XOR of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100110",
                 new SimulationCode()
@@ -537,8 +537,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("xori $t1,$t2,100",
-            	 "Bitwise XOR immediate : Set $t1 to bitwise XOR of $t2 and zero-extended 16-bit immediate",
+                new BasicInstruction("xori X1,X2,100",
+            	 "Bitwise XOR immediate : Set X1 to bitwise XOR of X2 and zero-extended 16-bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "001110 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -553,8 +553,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));					
          instructionList.add(
-                new BasicInstruction("sll $t1,$t2,10",
-            	 "Shift left logical : Set $t1 to result of shifting $t2 left by number of bits specified by immediate",
+                new BasicInstruction("sll X1,X2,10",
+            	 "Shift left logical : Set X1 to result of shifting X2 left by number of bits specified by immediate",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 sssss fffff ttttt 000000",
                 new SimulationCode()
@@ -567,8 +567,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sllv $t1,$t2,$t3",
-            	 "Shift left logical variable : Set $t1 to result of shifting $t2 left by number of bits specified by value in low-order 5 bits of $t3",
+                new BasicInstruction("sllv X1,X2,X3",
+            	 "Shift left logical variable : Set X1 to result of shifting X2 left by number of bits specified by value in low-order 5 bits of X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 ttttt sssss fffff 00000 000100",
                 new SimulationCode()
@@ -583,8 +583,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("srl $t1,$t2,10",
-            	 "Shift right logical : Set $t1 to result of shifting $t2 right by number of bits specified by immediate",
+                new BasicInstruction("srl X1,X2,10",
+            	 "Shift right logical : Set X1 to result of shifting X2 right by number of bits specified by immediate",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 sssss fffff ttttt 000010",
                 new SimulationCode()
@@ -598,8 +598,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sra $t1,$t2,10",
-                "Shift right arithmetic : Set $t1 to result of sign-extended shifting $t2 right by number of bits specified by immediate",
+                new BasicInstruction("sra X1,X2,10",
+                "Shift right arithmetic : Set X1 to result of sign-extended shifting X2 right by number of bits specified by immediate",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 sssss fffff ttttt 000011",
                 new SimulationCode()
@@ -613,8 +613,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("srav $t1,$t2,$t3",
-            	 "Shift right arithmetic variable : Set $t1 to result of sign-extended shifting $t2 right by number of bits specified by value in low-order 5 bits of $t3",
+                new BasicInstruction("srav X1,X2,X3",
+            	 "Shift right arithmetic variable : Set X1 to result of sign-extended shifting X2 right by number of bits specified by value in low-order 5 bits of X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 ttttt sssss fffff 00000 000111",
                 new SimulationCode()
@@ -629,8 +629,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("srlv $t1,$t2,$t3",
-            	 "Shift right logical variable : Set $t1 to result of shifting $t2 right by number of bits specified by value in low-order 5 bits of $t3",
+                new BasicInstruction("srlv X1,X2,X3",
+            	 "Shift right logical variable : Set X1 to result of shifting X2 right by number of bits specified by value in low-order 5 bits of X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 ttttt sssss fffff 00000 000110",
                 new SimulationCode()
@@ -645,8 +645,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lw $t1,-100($t2)",
-            	 "Load word : Set $t1 to contents of effective memory word address",
+                new BasicInstruction("lw X1,-100(X2)",
+            	 "Load word : Set X1 to contents of effective memory word address",
                 BasicInstructionFormat.I_FORMAT,
                 "100011 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -667,7 +667,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("ll $t1,-100($t2)",
+                new BasicInstruction("ll X1,-100(X2)",
                 "Load linked : Paired with Store Conditional (sc) to perform atomic read-modify-write.  Treated as equivalent to Load Word (lw) because MARS does not simulate multiple processors.",
             	 BasicInstructionFormat.I_FORMAT,
                 "110000 ttttt fffff ssssssssssssssss",
@@ -697,8 +697,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lwl $t1,-100($t2)",
-                "Load word left : Load from 1 to 4 bytes left-justified into $t1, starting with effective memory byte address and continuing through the low-order byte of its word",
+                new BasicInstruction("lwl X1,-100(X2)",
+                "Load word left : Load from 1 to 4 bytes left-justified into X1, starting with effective memory byte address and continuing through the low-order byte of its word",
             	 BasicInstructionFormat.I_FORMAT,
                 "100010 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -722,8 +722,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lwr $t1,-100($t2)",
-                "Load word right : Load from 1 to 4 bytes right-justified into $t1, starting with effective memory byte address and continuing through the high-order byte of its word",
+                new BasicInstruction("lwr X1,-100(X2)",
+                "Load word right : Load from 1 to 4 bytes right-justified into X1, starting with effective memory byte address and continuing through the high-order byte of its word",
             	 BasicInstructionFormat.I_FORMAT,
                 "100110 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -747,8 +747,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sw $t1,-100($t2)",
-                "Store word : Store contents of $t1 into effective memory word address",
+                new BasicInstruction("sw X1,-100(X2)",
+                "Store word : Store contents of X1 into effective memory word address",
             	 BasicInstructionFormat.I_FORMAT,
                 "101011 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -769,8 +769,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sc $t1,-100($t2)",
-                "Store conditional : Paired with Load Linked (ll) to perform atomic read-modify-write.  Stores $t1 value into effective address, then sets $t1 to 1 for success.  Always succeeds because MARS does not simulate multiple processors.",
+                new BasicInstruction("sc X1,-100(X2)",
+                "Store conditional : Paired with Load Linked (ll) to perform atomic read-modify-write.  Stores X1 value into effective address, then sets X1 to 1 for success.  Always succeeds because MARS does not simulate multiple processors.",
             	 BasicInstructionFormat.I_FORMAT,
                 "111000 ttttt fffff ssssssssssssssss",
             	 // See comments with "ll" instruction above.  "sc" is implemented
@@ -794,8 +794,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("swl $t1,-100($t2)",
-                "Store word left : Store high-order 1 to 4 bytes of $t1 into memory, starting with effective byte address and continuing through the low-order byte of its word",
+                new BasicInstruction("swl X1,-100(X2)",
+                "Store word left : Store high-order 1 to 4 bytes of X1 into memory, starting with effective byte address and continuing through the low-order byte of its word",
             	 BasicInstructionFormat.I_FORMAT,
                 "101010 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -818,8 +818,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("swr $t1,-100($t2)",
-                "Store word right : Store low-order 1 to 4 bytes of $t1 into memory, starting with high-order byte of word containing effective byte address and continuing through that byte address",
+                new BasicInstruction("swr X1,-100(X2)",
+                "Store word right : Store low-order 1 to 4 bytes of X1 into memory, starting with high-order byte of word containing effective byte address and continuing through that byte address",
             	 BasicInstructionFormat.I_FORMAT,
                 "101110 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -842,8 +842,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lui $t1,100",
-                "Load upper immediate : Set high-order 16 bits of $t1 to 16-bit immediate and low-order 16 bits to 0",
+                new BasicInstruction("lui X1,100",
+                "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
             	 BasicInstructionFormat.I_FORMAT,
                 "001111 00000 fffff ssssssssssssssss",
                 new SimulationCode()
@@ -855,8 +855,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("beq $t1,$t2,label",
-                "Branch if equal : Branch to statement at label's address if $t1 and $t2 are equal",
+                new BasicInstruction("beq X1,X2,label",
+                "Branch if equal : Branch to statement at label's address if X1 and X2 are equal",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000100 fffff sssss tttttttttttttttt",
                 new SimulationCode()
@@ -873,8 +873,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("bne $t1,$t2,label",
-                "Branch if not equal : Branch to statement at label's address if $t1 and $t2 are not equal",
+                new BasicInstruction("bne X1,X2,label",
+                "Branch if not equal : Branch to statement at label's address if X1 and X2 are not equal",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000101 fffff sssss tttttttttttttttt",
                 new SimulationCode()
@@ -890,8 +890,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("bgez $t1,label",
-                "Branch if greater than or equal to zero : Branch to statement at label's address if $t1 is greater than or equal to zero",
+                new BasicInstruction("bgez X1,label",
+                "Branch if greater than or equal to zero : Branch to statement at label's address if X1 is greater than or equal to zero",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000001 fffff 00001 ssssssssssssssss",
                 new SimulationCode()
@@ -906,8 +906,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("bgezal $t1,label",
-                "Branch if greater then or equal to zero and link : If $t1 is greater than or equal to zero, then set $ra to the Program Counter and branch to statement at label's address",
+                new BasicInstruction("bgezal X1,label",
+                "Branch if greater then or equal to zero and link : If X1 is greater than or equal to zero, then set $ra to the Program Counter and branch to statement at label's address",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000001 fffff 10001 ssssssssssssssss",
                 new SimulationCode()
@@ -923,8 +923,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   } 
                }));
          instructionList.add(
-                new BasicInstruction("bgtz $t1,label",
-                "Branch if greater than zero : Branch to statement at label's address if $t1 is greater than zero",
+                new BasicInstruction("bgtz X1,label",
+                "Branch if greater than zero : Branch to statement at label's address if X1 is greater than zero",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000111 fffff 00000 ssssssssssssssss",
                 new SimulationCode()
@@ -939,8 +939,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("blez $t1,label",
-                "Branch if less than or equal to zero : Branch to statement at label's address if $t1 is less than or equal to zero",
+                new BasicInstruction("blez X1,label",
+                "Branch if less than or equal to zero : Branch to statement at label's address if X1 is less than or equal to zero",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000110 fffff 00000 ssssssssssssssss",
                 new SimulationCode()
@@ -955,8 +955,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("bltz $t1,label",
-                "Branch if less than zero : Branch to statement at label's address if $t1 is less than zero",
+                new BasicInstruction("bltz X1,label",
+                "Branch if less than zero : Branch to statement at label's address if X1 is less than zero",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000001 fffff 00000 ssssssssssssssss",
                 new SimulationCode()
@@ -971,8 +971,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("bltzal $t1,label",
-                "Branch if less than zero and link : If $t1 is less than or equal to zero, then set $ra to the Program Counter and branch to statement at label's address",
+                new BasicInstruction("bltzal X1,label",
+                "Branch if less than zero and link : If X1 is less than or equal to zero, then set $ra to the Program Counter and branch to statement at label's address",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
                 "000001 fffff 10000 ssssssssssssssss",
                 new SimulationCode()
@@ -988,8 +988,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("slt $t1,$t2,$t3",
-                "Set less than : If $t2 is less than $t3, then set $t1 to 1 else set $t1 to 0",
+                new BasicInstruction("slt X1,X2,X3",
+                "Set less than : If X2 is less than X3, then set X1 to 1 else set X1 to 0",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 101010",
                 new SimulationCode()
@@ -1005,8 +1005,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sltu $t1,$t2,$t3",
-                "Set less than unsigned : If $t2 is less than $t3 using unsigned comparision, then set $t1 to 1 else set $t1 to 0",
+                new BasicInstruction("sltu X1,X2,X3",
+                "Set less than unsigned : If X2 is less than X3 using unsigned comparision, then set X1 to 1 else set X1 to 0",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 101011",
                 new SimulationCode()
@@ -1029,8 +1029,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("slti $t1,$t2,-100",
-                "Set less than immediate : If $t2 is less than sign-extended 16-bit immediate, then set $t1 to 1 else set $t1 to 0",
+                new BasicInstruction("slti X1,X2,-100",
+                "Set less than immediate : If X2 is less than sign-extended 16-bit immediate, then set X1 to 1 else set X1 to 0",
             	 BasicInstructionFormat.I_FORMAT,
                 "001010 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -1047,8 +1047,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sltiu $t1,$t2,-100",
-                "Set less than immediate unsigned : If $t2 is less than  sign-extended 16-bit immediate using unsigned comparison, then set $t1 to 1 else set $t1 to 0",
+                new BasicInstruction("sltiu X1,X2,-100",
+                "Set less than immediate unsigned : If X2 is less than  sign-extended 16-bit immediate using unsigned comparison, then set X1 to 1 else set X1 to 0",
             	 BasicInstructionFormat.I_FORMAT,
                 "001011 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -1072,8 +1072,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movn $t1,$t2,$t3",
-                "Move conditional not zero : Set $t1 to $t2 if $t3 is not zero",
+                new BasicInstruction("movn X1,X2,X3",
+                "Move conditional not zero : Set X1 to X2 if X3 is not zero",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 001011",
                 new SimulationCode()
@@ -1086,8 +1086,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movz $t1,$t2,$t3",
-                "Move conditional zero : Set $t1 to $t2 if $t3 is zero",
+                new BasicInstruction("movz X1,X2,X3",
+                "Move conditional zero : Set X1 to X2 if X3 is zero",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 001010",
                 new SimulationCode()
@@ -1100,8 +1100,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movf $t1,$t2",
-                "Move if FP condition flag 0 false : Set $t1 to $t2 if FPU (Coprocessor 1) condition flag 0 is false (zero)",
+                new BasicInstruction("movf X1,X2",
+                "Move if FP condition flag 0 false : Set X1 to X2 if FPU (Coprocessor 1) condition flag 0 is false (zero)",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss 000 00 fffff 00000 000001",
                 new SimulationCode()
@@ -1114,8 +1114,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movf $t1,$t2,1",
-                "Move if specified FP condition flag false : Set $t1 to $t2 if FPU (Coprocessor 1) condition flag specified by the immediate is false (zero)",
+                new BasicInstruction("movf X1,X2,1",
+                "Move if specified FP condition flag false : Set X1 to X2 if FPU (Coprocessor 1) condition flag specified by the immediate is false (zero)",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttt 00 fffff 00000 000001",
                 new SimulationCode()
@@ -1128,8 +1128,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movt $t1,$t2",
-            	 "Move if FP condition flag 0 true : Set $t1 to $t2 if FPU (Coprocessor 1) condition flag 0 is true (one)",
+                new BasicInstruction("movt X1,X2",
+            	 "Move if FP condition flag 0 true : Set X1 to X2 if FPU (Coprocessor 1) condition flag 0 is true (one)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss 000 01 fffff 00000 000001",
                 new SimulationCode()
@@ -1142,8 +1142,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movt $t1,$t2,1",
-            	 "Move if specfied FP condition flag true : Set $t1 to $t2 if FPU (Coprocessor 1) condition flag specified by the immediate is true (one)",
+                new BasicInstruction("movt X1,X2,1",
+            	 "Move if specfied FP condition flag true : Set X1 to X2 if FPU (Coprocessor 1) condition flag specified by the immediate is true (one)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttt 01 fffff 00000 000001",
                 new SimulationCode()
@@ -1186,7 +1186,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                }));					
          instructionList.add(
                 new BasicInstruction("syscall", 
-            	 "Issue a system call : Execute the system call specified by value in $v0",
+            	 "Issue a system call : Execute the system call specified by value in X0",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 00000 00000 00000 001100",
                 new SimulationCode()
@@ -1212,8 +1212,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("jr $t1", 
-            	 "Jump register unconditionally : Jump to statement whose address is in $t1",
+                new BasicInstruction("jr X1", 
+            	 "Jump register unconditionally : Jump to statement whose address is in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff 00000 00000 00000 001000",
                 new SimulationCode()
@@ -1241,8 +1241,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("jalr $t1,$t2",
-                "Jump and link register : Set $t1 to Program Counter (return address) then jump to statement whose address is in $t2",
+                new BasicInstruction("jalr X1,X2",
+                "Jump and link register : Set X1 to Program Counter (return address) then jump to statement whose address is in X2",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss 00000 fffff 00000 001001",
                 new SimulationCode()
@@ -1255,8 +1255,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("jalr $t1",
-                "Jump and link register : Set $ra to Program Counter (return address) then jump to statement whose address is in $t1",
+                new BasicInstruction("jalr X1",
+                "Jump and link register : Set $ra to Program Counter (return address) then jump to statement whose address is in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff 00000 11111 00000 001001",
                 new SimulationCode()
@@ -1269,8 +1269,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lb $t1,-100($t2)",
-                "Load byte : Set $t1 to sign-extended 8-bit value from effective memory byte address",
+                new BasicInstruction("lb X1,-100(X2)",
+                "Load byte : Set X1 to sign-extended 8-bit value from effective memory byte address",
             	 BasicInstructionFormat.I_FORMAT,
                 "100000 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -1294,8 +1294,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lh $t1,-100($t2)",
-                "Load halfword : Set $t1 to sign-extended 16-bit value from effective memory halfword address",
+                new BasicInstruction("lh X1,-100(X2)",
+                "Load halfword : Set X1 to sign-extended 16-bit value from effective memory halfword address",
             	 BasicInstructionFormat.I_FORMAT,
                 "100001 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -1319,8 +1319,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lhu $t1,-100($t2)",
-                "Load halfword unsigned : Set $t1 to zero-extended 16-bit value from effective memory halfword address",
+                new BasicInstruction("lhu X1,-100(X2)",
+                "Load halfword unsigned : Set X1 to zero-extended 16-bit value from effective memory halfword address",
             	 BasicInstructionFormat.I_FORMAT,
                 "100101 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -1344,8 +1344,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lbu $t1,-100($t2)",
-                "Load byte unsigned : Set $t1 to zero-extended 8-bit value from effective memory byte address",
+                new BasicInstruction("lbu X1,-100(X2)",
+                "Load byte unsigned : Set X1 to zero-extended 8-bit value from effective memory byte address",
             	 BasicInstructionFormat.I_FORMAT,
                 "100100 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -1368,8 +1368,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sb $t1,-100($t2)",
-                "Store byte : Store the low-order 8 bits of $t1 into the effective memory byte address",
+                new BasicInstruction("sb X1,-100(X2)",
+                "Store byte : Store the low-order 8 bits of X1 into the effective memory byte address",
             	 BasicInstructionFormat.I_FORMAT,
                 "101000 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -1392,8 +1392,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sh $t1,-100($t2)",
-                "Store halfword : Store the low-order 16 bits of $t1 into the effective memory halfword address",
+                new BasicInstruction("sh X1,-100(X2)",
+                "Store halfword : Store the low-order 16 bits of X1 into the effective memory halfword address",
             	 BasicInstructionFormat.I_FORMAT,
                 "101001 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -1416,8 +1416,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));				
          instructionList.add(        
-                new BasicInstruction("clo $t1,$t2", 
-            	 "Count number of leading ones : Set $t1 to the count of leading one bits in $t2 starting at most significant bit position",
+                new BasicInstruction("clo X1,X2", 
+            	 "Count number of leading ones : Set X1 to the count of leading one bits in X2 starting at most significant bit position",
             	 BasicInstructionFormat.R_FORMAT,
             	 // MIPS32 requires rd (first) operand to appear twice in machine code.
             	 // It has to be same as rt (third) operand in machine code, but the
@@ -1450,8 +1450,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));	
          instructionList.add(        
-                new BasicInstruction("clz $t1,$t2", 
-            	 "Count number of leading zeroes : Set $t1 to the count of leading zero bits in $t2 starting at most significant bit positio",
+                new BasicInstruction("clz X1,X2", 
+            	 "Count number of leading zeroes : Set X1 to the count of leading zero bits in X2 starting at most significant bit positio",
             	 BasicInstructionFormat.R_FORMAT,
             	 // See comments for "clo" instruction above.  They apply here too.
                 "011100 sssss 00000 fffff 00000 100000",
@@ -1471,8 +1471,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));				
          instructionList.add(        
-                new BasicInstruction("mfc0 $t1,$8", 
-            	 "Move from Coprocessor 0 : Set $t1 to the value stored in Coprocessor 0 register $8",
+                new BasicInstruction("mfc0 X1,$8", 
+            	 "Move from Coprocessor 0 : Set X1 to the value stored in Coprocessor 0 register $8",
             	 BasicInstructionFormat.R_FORMAT,
                 "010000 00000 fffff sssss 00000 000000",
                 new SimulationCode()
@@ -1485,8 +1485,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mtc0 $t1,$8", 
-            	 "Move to Coprocessor 0 : Set Coprocessor 0 register $8 to value stored in $t1",
+                new BasicInstruction("mtc0 X1,$8", 
+            	 "Move to Coprocessor 0 : Set Coprocessor 0 register $8 to value stored in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "010000 00100 fffff sssss 00000 000000",
                 new SimulationCode()
@@ -1501,8 +1501,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       			
         /////////////////////// Floating Point Instructions Start Here ////////////////
          instructionList.add(
-                new BasicInstruction("add.s $f0,$f1,$f3",
-                "Floating point addition single precision : Set $f0 to single-precision floating point value of $f1 plus $f3", 
+                new BasicInstruction("add.s X0,X1,X3",
+                "Floating point addition single precision : Set X0 to single-precision floating point value of X1 plus X3", 
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000000",
                 new SimulationCode()
@@ -1523,8 +1523,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub.s $f0,$f1,$f3",
-                "Floating point subtraction single precision : Set $f0 to single-precision floating point value of $f1  minus $f3",
+                new BasicInstruction("sub.s X0,X1,X3",
+                "Floating point subtraction single precision : Set X0 to single-precision floating point value of X1  minus X3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000001",
                 new SimulationCode()
@@ -1539,8 +1539,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mul.s $f0,$f1,$f3",
-                "Floating point multiplication single precision : Set $f0 to single-precision floating point value of $f1 times $f3",
+                new BasicInstruction("mul.s X0,X1,X3",
+                "Floating point multiplication single precision : Set X0 to single-precision floating point value of X1 times X3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000010",
                 new SimulationCode()
@@ -1555,8 +1555,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("div.s $f0,$f1,$f3",
-                "Floating point division single precision : Set $f0 to single-precision floating point value of $f1 divided by $f3",
+                new BasicInstruction("div.s X0,X1,X3",
+                "Floating point division single precision : Set X0 to single-precision floating point value of X1 divided by X3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000011",
                 new SimulationCode()
@@ -1571,8 +1571,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sqrt.s $f0,$f1",
-            	 "Square root single precision : Set $f0 to single-precision floating point square root of $f1",
+                new BasicInstruction("sqrt.s X0,X1",
+            	 "Square root single precision : Set X0 to single-precision floating point square root of X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 000100",
                 new SimulationCode()
@@ -1598,8 +1598,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("floor.w.s $f0,$f1",
-                "Floor single precision to word : Set $f0 to 32-bit integer floor of single-precision float in $f1",
+                new BasicInstruction("floor.w.s X0,X1",
+                "Floor single precision to word : Set X0 to 32-bit integer floor of single-precision float in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 001111",
                 new SimulationCode()
@@ -1621,8 +1621,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("ceil.w.s $f0,$f1",
-            	 "Ceiling single precision to word : Set $f0 to 32-bit integer ceiling of single-precision float in $f1",
+                new BasicInstruction("ceil.w.s X0,X1",
+            	 "Ceiling single precision to word : Set X0 to 32-bit integer ceiling of single-precision float in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 001110",
                 new SimulationCode()
@@ -1644,8 +1644,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("round.w.s $f0,$f1",
-                "Round single precision to word : Set $f0 to 32-bit integer round of single-precision float in $f1",
+                new BasicInstruction("round.w.s X0,X1",
+                "Round single precision to word : Set X0 to 32-bit integer round of single-precision float in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 001100",
                 new SimulationCode()
@@ -1692,8 +1692,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("trunc.w.s $f0,$f1",
-                "Truncate single precision to word : Set $f0 to 32-bit integer truncation of single-precision float in $f1",
+                new BasicInstruction("trunc.w.s X0,X1",
+                "Truncate single precision to word : Set X0 to 32-bit integer truncation of single-precision float in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 001101",
                 new SimulationCode()
@@ -1715,8 +1715,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("add.d $f2,$f4,$f6",
-            	 "Floating point addition double precision : Set $f2 to double-precision floating point value of $f4 plus $f6",
+                new BasicInstruction("add.d X2,X4,X6",
+            	 "Floating point addition double precision : Set X2 to double-precision floating point value of X4 plus X6",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000000",
                 new SimulationCode()
@@ -1738,8 +1738,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub.d $f2,$f4,$f6",
-            	 "Floating point subtraction double precision : Set $f2 to double-precision floating point value of $f4 minus $f6",
+                new BasicInstruction("sub.d X2,X4,X6",
+            	 "Floating point subtraction double precision : Set X2 to double-precision floating point value of X4 minus X6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000001",
                 new SimulationCode()
@@ -1761,8 +1761,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mul.d $f2,$f4,$f6",
-            	 "Floating point multiplication double precision : Set $f2 to double-precision floating point value of $f4 times $f6",
+                new BasicInstruction("mul.d X2,X4,X6",
+            	 "Floating point multiplication double precision : Set X2 to double-precision floating point value of X4 times X6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000010",
                 new SimulationCode()
@@ -1784,8 +1784,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("div.d $f2,$f4,$f6",
-            	 "Floating point division double precision : Set $f2 to double-precision floating point value of $f4 divided by $f6",
+                new BasicInstruction("div.d X2,X4,X6",
+            	 "Floating point division double precision : Set X2 to double-precision floating point value of X4 divided by X6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000011",
                 new SimulationCode()
@@ -1807,8 +1807,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sqrt.d $f2,$f4",
-            	 "Square root double precision : Set $f2 to double-precision floating point square root of $f4",
+                new BasicInstruction("sqrt.d X2,X4",
+            	 "Square root double precision : Set X2 to double-precision floating point square root of X4",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 000100",
                 new SimulationCode()
@@ -1839,8 +1839,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("floor.w.d $f1,$f2",
-            	 "Floor double precision to word : Set $f1 to 32-bit integer floor of double-precision float in $f2",
+                new BasicInstruction("floor.w.d X1,X2",
+            	 "Floor double precision to word : Set X1 to 32-bit integer floor of double-precision float in X2",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 001111",
                 new SimulationCode()
@@ -1866,8 +1866,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("ceil.w.d $f1,$f2",
-            	 "Ceiling double precision to word : Set $f1 to 32-bit integer ceiling of double-precision float in $f2",
+                new BasicInstruction("ceil.w.d X1,X2",
+            	 "Ceiling double precision to word : Set X1 to 32-bit integer ceiling of double-precision float in X2",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 001110",
                 new SimulationCode()
@@ -1893,8 +1893,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("round.w.d $f1,$f2",
-            	 "Round double precision to word : Set $f1 to 32-bit integer round of double-precision float in $f2",
+                new BasicInstruction("round.w.d X1,X2",
+            	 "Round double precision to word : Set X1 to 32-bit integer round of double-precision float in X2",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 001100",
                 new SimulationCode()
@@ -1940,8 +1940,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("trunc.w.d $f1,$f2",
-            	 "Truncate double precision to word : Set $f1 to 32-bit integer truncation of double-precision float in $f2",
+                new BasicInstruction("trunc.w.d X1,X2",
+            	 "Truncate double precision to word : Set X1 to 32-bit integer truncation of double-precision float in X2",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 001101",
                 new SimulationCode()
@@ -2033,8 +2033,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.eq.s $f0,$f1",
-                "Compare equal single precision : If $f0 is equal to $f1, set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("c.eq.s X0,X1",
+                "Compare equal single precision : If X0 is equal to X1, set Coprocessor 1 condition flag 0 true else set it false",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 sssss fffff 00000 110010",
                 new SimulationCode()
@@ -2051,8 +2051,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.eq.s 1,$f0,$f1",
-                 "Compare equal single precision : If $f0 is equal to $f1, set Coprocessor 1 condition flag specied by immediate to true else set it to false",
+                new BasicInstruction("c.eq.s 1,X0,X1",
+                 "Compare equal single precision : If X0 is equal to X1, set Coprocessor 1 condition flag specied by immediate to true else set it to false",
                BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fff 00 11 0010",
                 new SimulationCode()
@@ -2069,8 +2069,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.le.s $f0,$f1",
-            	 "Compare less or equal single precision : If $f0 is less than or equal to $f1, set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("c.le.s X0,X1",
+            	 "Compare less or equal single precision : If X0 is less than or equal to X1, set Coprocessor 1 condition flag 0 true else set it false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 sssss fffff 00000 111110",
                 new SimulationCode()
@@ -2087,8 +2087,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.le.s 1,$f0,$f1",
-            	 "Compare less or equal single precision : If $f0 is less than or equal to $f1, set Coprocessor 1 condition flag specified by immediate to true else set it to false",
+                new BasicInstruction("c.le.s 1,X0,X1",
+            	 "Compare less or equal single precision : If X0 is less than or equal to X1, set Coprocessor 1 condition flag specified by immediate to true else set it to false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fff 00 111110",
                 new SimulationCode()
@@ -2105,8 +2105,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.lt.s $f0,$f1",
-            	 "Compare less than single precision : If $f0 is less than $f1, set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("c.lt.s X0,X1",
+            	 "Compare less than single precision : If X0 is less than X1, set Coprocessor 1 condition flag 0 true else set it false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 sssss fffff 00000 111100",
                 new SimulationCode()
@@ -2123,8 +2123,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.lt.s 1,$f0,$f1",
-                "Compare less than single precision : If $f0 is less than $f1, set Coprocessor 1 condition flag specified by immediate to true else set it to false",
+                new BasicInstruction("c.lt.s 1,X0,X1",
+                "Compare less than single precision : If X0 is less than X1, set Coprocessor 1 condition flag specified by immediate to true else set it to false",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fff 00 111100",
                 new SimulationCode()
@@ -2141,8 +2141,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.eq.d $f2,$f4",
-            	 "Compare equal double precision : If $f2 is equal to $f4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("c.eq.d X2,X4",
+            	 "Compare equal double precision : If X2 is equal to X4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 sssss fffff 00000 110010",
                 new SimulationCode()
@@ -2164,8 +2164,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.eq.d 1,$f2,$f4",
-            	 "Compare equal double precision : If $f2 is equal to $f4 (double-precision), set Coprocessor 1 condition flag specified by immediate to true else set it to false",
+                new BasicInstruction("c.eq.d 1,X2,X4",
+            	 "Compare equal double precision : If X2 is equal to X4 (double-precision), set Coprocessor 1 condition flag specified by immediate to true else set it to false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fff 00 110010",
                 new SimulationCode()
@@ -2187,8 +2187,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.le.d $f2,$f4",
-            	 "Compare less or equal double precision : If $f2 is less than or equal to $f4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("c.le.d X2,X4",
+            	 "Compare less or equal double precision : If X2 is less than or equal to X4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 sssss fffff 00000 111110",
                 new SimulationCode()
@@ -2210,8 +2210,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.le.d 1,$f2,$f4",
-            	 "Compare less or equal double precision : If $f2 is less than or equal to $f4 (double-precision), set Coprocessor 1 condition flag specfied by immediate true else set it false",
+                new BasicInstruction("c.le.d 1,X2,X4",
+            	 "Compare less or equal double precision : If X2 is less than or equal to X4 (double-precision), set Coprocessor 1 condition flag specfied by immediate true else set it false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fff 00 111110",
                 new SimulationCode()
@@ -2233,8 +2233,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.lt.d $f2,$f4",
-            	 "Compare less than double precision : If $f2 is less than $f4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("c.lt.d X2,X4",
+            	 "Compare less than double precision : If X2 is less than X4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 sssss fffff 00000 111100",
                 new SimulationCode()
@@ -2256,8 +2256,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.lt.d 1,$f2,$f4",
-            	 "Compare less than double precision : If $f2 is less than $f4 (double-precision), set Coprocessor 1 condition flag specified by immediate to true else set it to false",
+                new BasicInstruction("c.lt.d 1,X2,X4",
+            	 "Compare less than double precision : If X2 is less than X4 (double-precision), set Coprocessor 1 condition flag specified by immediate to true else set it to false",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fff 00 111100",
                 new SimulationCode()
@@ -2279,8 +2279,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("abs.s $f0,$f1",
-            	 "Floating point absolute value single precision : Set $f0 to absolute value of $f1, single precision",
+                new BasicInstruction("abs.s X0,X1",
+            	 "Floating point absolute value single precision : Set X0 to absolute value of X1, single precision",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 000101",
                 new SimulationCode()
@@ -2294,8 +2294,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("abs.d $f2,$f4",
-            	 "Floating point absolute value double precision : Set $f2 to absolute value of $f4, double precision",
+                new BasicInstruction("abs.d X2,X4",
+            	 "Floating point absolute value double precision : Set X2 to absolute value of X4, double precision",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 000101",
                 new SimulationCode()
@@ -2314,8 +2314,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("cvt.d.s $f2,$f1",
-            	 "Convert from single precision to double precision : Set $f2 to double precision equivalent of single precision value in $f1",
+                new BasicInstruction("cvt.d.s X2,X1",
+            	 "Convert from single precision to double precision : Set X2 to double precision equivalent of single precision value in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 100001",
                 new SimulationCode()
@@ -2326,7 +2326,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      if (operands[0]%2==1) {
                         throw new ProcessingException(statement, "first register must be even-numbered");
                      }
-                  	// convert single precision in $f1 to double stored in $f2
+                  	// convert single precision in X1 to double stored in X2
                      long result = Double.doubleToLongBits(
                           (double)Float.intBitsToFloat(Coprocessor1.getValue(operands[1])));
                      Coprocessor1.updateRegister(operands[0]+1, Binary.highOrderLongToInt(result));
@@ -2334,8 +2334,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("cvt.d.w $f2,$f1",
-            	 "Convert from word to double precision : Set $f2 to double precision equivalent of 32-bit integer value in $f1",
+                new BasicInstruction("cvt.d.w X2,X1",
+            	 "Convert from word to double precision : Set X2 to double precision equivalent of 32-bit integer value in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10100 00000 sssss fffff 100001",
                 new SimulationCode()
@@ -2346,7 +2346,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      if (operands[0]%2==1) {
                         throw new ProcessingException(statement, "first register must be even-numbered");
                      }
-                  	// convert integer to double (interpret $f1 value as int?)
+                  	// convert integer to double (interpret X1 value as int?)
                      long result = Double.doubleToLongBits(
                           (double)Coprocessor1.getValue(operands[1]));
                      Coprocessor1.updateRegister(operands[0]+1, Binary.highOrderLongToInt(result));
@@ -2354,8 +2354,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("cvt.s.d $f1,$f2",
-                "Convert from double precision to single precision : Set $f1 to single precision equivalent of double precision value in $f2",
+                new BasicInstruction("cvt.s.d X1,X2",
+                "Convert from double precision to single precision : Set X1 to single precision equivalent of double precision value in X2",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 100000",
                 new SimulationCode()
@@ -2363,7 +2363,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   { 
                      int[] operands = statement.getOperands();
-                  	// convert double precision in $f2 to single stored in $f1
+                  	// convert double precision in X2 to single stored in X1
                      if (operands[1]%2==1) {
                         throw new ProcessingException(statement, "second register must be even-numbered");
                      }
@@ -2373,8 +2373,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("cvt.s.w $f0,$f1",
-            	 "Convert from word to single precision : Set $f0 to single precision equivalent of 32-bit integer value in $f2",
+                new BasicInstruction("cvt.s.w X0,X1",
+            	 "Convert from word to single precision : Set X0 to single precision equivalent of 32-bit integer value in X2",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10100 00000 sssss fffff 100000",
                 new SimulationCode()
@@ -2382,14 +2382,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   { 
                      int[] operands = statement.getOperands();
-                  	// convert integer to single (interpret $f1 value as int?)
+                  	// convert integer to single (interpret X1 value as int?)
                      Coprocessor1.updateRegister(operands[0], 
                          Float.floatToIntBits((float)Coprocessor1.getValue(operands[1])));
                   }
                }));
          instructionList.add(
-                new BasicInstruction("cvt.w.d $f1,$f2",
-            	 "Convert from double precision to word : Set $f1 to 32-bit integer equivalent of double precision value in $f2",
+                new BasicInstruction("cvt.w.d X1,X2",
+            	 "Convert from double precision to word : Set X1 to 32-bit integer equivalent of double precision value in X2",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 100100",
                 new SimulationCode()
@@ -2397,7 +2397,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   { 
                      int[] operands = statement.getOperands();
-                  	// convert double precision in $f2 to integer stored in $f1
+                  	// convert double precision in X2 to integer stored in X1
                      if (operands[1]%2==1) {
                         throw new ProcessingException(statement, "second register must be even-numbered");
                      }
@@ -2407,8 +2407,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("cvt.w.s $f0,$f1",
-            	 "Convert from single precision to word : Set $f0 to 32-bit integer equivalent of single precision value in $f1",
+                new BasicInstruction("cvt.w.s X0,X1",
+            	 "Convert from single precision to word : Set X0 to 32-bit integer equivalent of single precision value in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 100100",
                 new SimulationCode()
@@ -2416,14 +2416,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   { 
                      int[] operands = statement.getOperands();
-                  	// convert single precision in $f1 to integer stored in $f0
+                  	// convert single precision in X1 to integer stored in X0
                      Coprocessor1.updateRegister(operands[0], 
                              (int)Float.intBitsToFloat(Coprocessor1.getValue(operands[1])));
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mov.d $f2,$f4",
-            	 "Move floating point double precision : Set double precision $f2 to double precision value in $f4",
+                new BasicInstruction("mov.d X2,X4",
+            	 "Move floating point double precision : Set double precision X2 to double precision value in X4",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 000110",
                 new SimulationCode()
@@ -2439,8 +2439,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movf.d $f2,$f4",
-            	 "Move floating point double precision : If condition flag 0 false, set double precision $f2 to double precision value in $f4",
+                new BasicInstruction("movf.d X2,X4",
+            	 "Move floating point double precision : If condition flag 0 false, set double precision X2 to double precision value in X4",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 000 00 sssss fffff 010001",
                 new SimulationCode()
@@ -2458,8 +2458,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movf.d $f2,$f4,1",
-            	 "Move floating point double precision : If condition flag specified by immediate is false, set double precision $f2 to double precision value in $f4",
+                new BasicInstruction("movf.d X2,X4,1",
+            	 "Move floating point double precision : If condition flag specified by immediate is false, set double precision X2 to double precision value in X4",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttt 00 sssss fffff 010001",
                 new SimulationCode()
@@ -2477,8 +2477,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movt.d $f2,$f4",
-            	 "Move floating point double precision : If condition flag 0 true, set double precision $f2 to double precision value in $f4",
+                new BasicInstruction("movt.d X2,X4",
+            	 "Move floating point double precision : If condition flag 0 true, set double precision X2 to double precision value in X4",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 000 01 sssss fffff 010001",
                 new SimulationCode()
@@ -2496,8 +2496,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movt.d $f2,$f4,1",
-            	 "Move floating point double precision : If condition flag specified by immediate is true, set double precision $f2 to double precision value in $f4e",
+                new BasicInstruction("movt.d X2,X4,1",
+            	 "Move floating point double precision : If condition flag specified by immediate is true, set double precision X2 to double precision value in X4e",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttt 01 sssss fffff 010001",
                 new SimulationCode()
@@ -2515,8 +2515,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movn.d $f2,$f4,$t3",
-            	 "Move floating point double precision : If $t3 is not zero, set double precision $f2 to double precision value in $f4",
+                new BasicInstruction("movn.d X2,X4,X3",
+            	 "Move floating point double precision : If X3 is not zero, set double precision X2 to double precision value in X4",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 010011",
                 new SimulationCode()
@@ -2534,8 +2534,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movz.d $f2,$f4,$t3",
-            	 "Move floating point double precision : If $t3 is zero, set double precision $f2 to double precision value in $f4",
+                new BasicInstruction("movz.d X2,X4,X3",
+            	 "Move floating point double precision : If X3 is zero, set double precision X2 to double precision value in X4",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 010010",
                 new SimulationCode()
@@ -2553,8 +2553,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mov.s $f0,$f1",
-            	 "Move floating point single precision : Set single precision $f0 to single precision value in $f1",
+                new BasicInstruction("mov.s X0,X1",
+            	 "Move floating point single precision : Set single precision X0 to single precision value in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 000110",
                 new SimulationCode()
@@ -2566,8 +2566,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movf.s $f0,$f1",
-            	 "Move floating point single precision : If condition flag 0 is false, set single precision $f0 to single precision value in $f1",
+                new BasicInstruction("movf.s X0,X1",
+            	 "Move floating point single precision : If condition flag 0 is false, set single precision X0 to single precision value in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 000 00 sssss fffff 010001",
                 new SimulationCode()
@@ -2580,8 +2580,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movf.s $f0,$f1,1",
-            	 "Move floating point single precision : If condition flag specified by immediate is false, set single precision $f0 to single precision value in $f1e",
+                new BasicInstruction("movf.s X0,X1,1",
+            	 "Move floating point single precision : If condition flag specified by immediate is false, set single precision X0 to single precision value in X1e",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttt 00 sssss fffff 010001",
                 new SimulationCode()
@@ -2594,8 +2594,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movt.s $f0,$f1",
-            	 "Move floating point single precision : If condition flag 0 is true, set single precision $f0 to single precision value in $f1e",
+                new BasicInstruction("movt.s X0,X1",
+            	 "Move floating point single precision : If condition flag 0 is true, set single precision X0 to single precision value in X1e",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 000 01 sssss fffff 010001",
                 new SimulationCode()
@@ -2608,8 +2608,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movt.s $f0,$f1,1",
-            	 "Move floating point single precision : If condition flag specified by immediate is true, set single precision $f0 to single precision value in $f1e",
+                new BasicInstruction("movt.s X0,X1,1",
+            	 "Move floating point single precision : If condition flag specified by immediate is true, set single precision X0 to single precision value in X1e",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttt 01 sssss fffff 010001",
                 new SimulationCode()
@@ -2622,8 +2622,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movn.s $f0,$f1,$t3",
-            	 "Move floating point single precision : If $t3 is not zero, set single precision $f0 to single precision value in $f1",
+                new BasicInstruction("movn.s X0,X1,X3",
+            	 "Move floating point single precision : If X3 is not zero, set single precision X0 to single precision value in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 010011",
                 new SimulationCode()
@@ -2636,8 +2636,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("movz.s $f0,$f1,$t3",
-            	 "Move floating point single precision : If $t3 is zero, set single precision $f0 to single precision value in $f1",
+                new BasicInstruction("movz.s X0,X1,X3",
+            	 "Move floating point single precision : If X3 is zero, set single precision X0 to single precision value in X1",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 010010",
                 new SimulationCode()
@@ -2650,8 +2650,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mfc1 $t1,$f1",
-                "Move from Coprocessor 1 (FPU) : Set $t1 to value in Coprocessor 1 register $f1",
+                new BasicInstruction("mfc1 X1,X1",
+                "Move from Coprocessor 1 (FPU) : Set X1 to value in Coprocessor 1 register X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 00000 fffff sssss 00000 000000", 
                 new SimulationCode()
@@ -2663,8 +2663,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mtc1 $t1,$f1",
-                "Move to Coprocessor 1 (FPU) : Set Coprocessor 1 register $f1 to value in $t1",
+                new BasicInstruction("mtc1 X1,X1",
+                "Move to Coprocessor 1 (FPU) : Set Coprocessor 1 register X1 to value in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 00100 fffff sssss 00000 000000",
                 new SimulationCode()
@@ -2676,8 +2676,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("neg.d $f2,$f4",
-                "Floating point negate double precision : Set double precision $f2 to negation of double precision value in $f4",
+                new BasicInstruction("neg.d X2,X4",
+                "Floating point negate double precision : Set double precision X2 to negation of double precision value in X4",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 00000 sssss fffff 000111",
                 new SimulationCode()
@@ -2696,8 +2696,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("neg.s $f0,$f1",
-                "Floating point negate single precision : Set single precision $f0 to negation of single precision value in $f1",
+                new BasicInstruction("neg.s X0,X1",
+                "Floating point negate single precision : Set single precision X0 to negation of single precision value in X1",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 00000 sssss fffff 000111",
                 new SimulationCode()
@@ -2712,8 +2712,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lwc1 $f1,-100($t2)",
-                "Load word into Coprocessor 1 (FPU) : Set $f1 to 32-bit value from effective memory word address",
+                new BasicInstruction("lwc1 X1,-100(X2)",
+                "Load word into Coprocessor 1 (FPU) : Set X1 to 32-bit value from effective memory word address",
             	 BasicInstructionFormat.I_FORMAT,
                 "110001 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -2734,8 +2734,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));		 
          instructionList.add(// no printed reference, got opcode from SPIM
-                new BasicInstruction("ldc1 $f2,-100($t2)",
-            	 "Load double word Coprocessor 1 (FPU)) : Set $f2 to 64-bit value from effective memory doubleword address",
+                new BasicInstruction("ldc1 X2,-100(X2)",
+            	 "Load double word Coprocessor 1 (FPU)) : Set X2 to 64-bit value from effective memory doubleword address",
                 BasicInstructionFormat.I_FORMAT,
                 "110101 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -2769,8 +2769,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));	 
          instructionList.add(
-                new BasicInstruction("swc1 $f1,-100($t2)",
-            	 "Store word from Coprocesor 1 (FPU) : Store 32 bit value in $f1 to effective memory word address",
+                new BasicInstruction("swc1 X1,-100(X2)",
+            	 "Store word from Coprocesor 1 (FPU) : Store 32 bit value in X1 to effective memory word address",
                 BasicInstructionFormat.I_FORMAT,
                 "111001 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -2791,8 +2791,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add( // no printed reference, got opcode from SPIM
-                new BasicInstruction("sdc1 $f2,-100($t2)",
-            	 "Store double word from Coprocessor 1 (FPU)) : Store 64 bit value in $f2 to effective memory doubleword address",
+                new BasicInstruction("sdc1 X2,-100(X2)",
+            	 "Store double word from Coprocessor 1 (FPU)) : Store 64 bit value in X2 to effective memory doubleword address",
                 BasicInstructionFormat.I_FORMAT,
                 "111101 ttttt fffff ssssssssssssssss",
                 new SimulationCode()
@@ -2826,8 +2826,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                }));
       	////////////////////////////  THE TRAP INSTRUCTIONS & ERET  ////////////////////////////
          instructionList.add(
-                new BasicInstruction("teq $t1,$t2",
-                "Trap if equal : Trap if $t1 is equal to $t2",
+                new BasicInstruction("teq X1,X2",
+                "Trap if equal : Trap if X1 is equal to X2",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 110100",
                 new SimulationCode()
@@ -2843,8 +2843,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("teqi $t1,-100",
-            	 "Trap if equal to immediate : Trap if $t1 is equal to sign-extended 16 bit immediate",
+                new BasicInstruction("teqi X1,-100",
+            	 "Trap if equal to immediate : Trap if X1 is equal to sign-extended 16 bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "000001 fffff 01100 ssssssssssssssss",
                 new SimulationCode()
@@ -2860,8 +2860,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tne $t1,$t2",
-                "Trap if not equal : Trap if $t1 is not equal to $t2",
+                new BasicInstruction("tne X1,X2",
+                "Trap if not equal : Trap if X1 is not equal to X2",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 110110",
                 new SimulationCode()
@@ -2877,8 +2877,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));        
          instructionList.add(
-                new BasicInstruction("tnei $t1,-100",
-            	 "Trap if not equal to immediate : Trap if $t1 is not equal to sign-extended 16 bit immediate",
+                new BasicInstruction("tnei X1,-100",
+            	 "Trap if not equal to immediate : Trap if X1 is not equal to sign-extended 16 bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "000001 fffff 01110 ssssssssssssssss",
                 new SimulationCode()
@@ -2894,8 +2894,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tge $t1,$t2",
-                "Trap if greater or equal : Trap if $t1 is greater than or equal to $t2",
+                new BasicInstruction("tge X1,X2",
+                "Trap if greater or equal : Trap if X1 is greater than or equal to X2",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 110000",
                 new SimulationCode()
@@ -2911,8 +2911,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tgeu $t1,$t2",
-                "Trap if greater or equal unsigned : Trap if $t1 is greater than or equal to $t2 using unsigned comparision",
+                new BasicInstruction("tgeu X1,X2",
+                "Trap if greater or equal unsigned : Trap if X1 is greater than or equal to X2 using unsigned comparision",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 110001",
                 new SimulationCode()
@@ -2931,8 +2931,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tgei $t1,-100",
-            	 "Trap if greater than or equal to immediate : Trap if $t1 greater than or equal to sign-extended 16 bit immediate",
+                new BasicInstruction("tgei X1,-100",
+            	 "Trap if greater than or equal to immediate : Trap if X1 greater than or equal to sign-extended 16 bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "000001 fffff 01000 ssssssssssssssss",
                 new SimulationCode()
@@ -2948,8 +2948,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tgeiu $t1,-100",
-                "Trap if greater or equal to immediate unsigned : Trap if $t1 greater than or equal to sign-extended 16 bit immediate, unsigned comparison",
+                new BasicInstruction("tgeiu X1,-100",
+                "Trap if greater or equal to immediate unsigned : Trap if X1 greater than or equal to sign-extended 16 bit immediate, unsigned comparison",
             	 BasicInstructionFormat.I_FORMAT,
                 "000001 fffff 01001 ssssssssssssssss",
                 new SimulationCode()
@@ -2969,8 +2969,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tlt $t1,$t2",
-                "Trap if less than: Trap if $t1 less than $t2",
+                new BasicInstruction("tlt X1,X2",
+                "Trap if less than: Trap if X1 less than X2",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 110010",
                 new SimulationCode()
@@ -2986,8 +2986,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tltu $t1,$t2",
-                "Trap if less than unsigned : Trap if $t1 less than $t2, unsigned comparison",
+                new BasicInstruction("tltu X1,X2",
+                "Trap if less than unsigned : Trap if X1 less than X2, unsigned comparison",
             	 BasicInstructionFormat.R_FORMAT,
                 "000000 fffff sssss 00000 00000 110011",
                 new SimulationCode()
@@ -3006,8 +3006,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tlti $t1,-100",
-            	 "Trap if less than immediate : Trap if $t1 less than sign-extended 16-bit immediate",
+                new BasicInstruction("tlti X1,-100",
+            	 "Trap if less than immediate : Trap if X1 less than sign-extended 16-bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "000001 fffff 01010 ssssssssssssssss",
                 new SimulationCode()
@@ -3023,8 +3023,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("tltiu $t1,-100",
-                "Trap if less than immediate unsigned : Trap if $t1 less than sign-extended 16-bit immediate, unsigned comparison",
+                new BasicInstruction("tltiu X1,-100",
+                "Trap if less than immediate unsigned : Trap if X1 less than sign-extended 16-bit immediate, unsigned comparison",
             	 BasicInstructionFormat.I_FORMAT,
                 "000001 fffff 01011 ssssssssssssssss",
                 new SimulationCode()
