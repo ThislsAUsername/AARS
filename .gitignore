@@ -1,1 +1,3 @@
 *.class
+examples
+.gitignore
