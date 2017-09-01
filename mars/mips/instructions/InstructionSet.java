@@ -917,7 +917,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      int[] operands = statement.getOperands();
                      if (RegisterFile.getValue(operands[0]) >= 0)
                      {  // the "and link" part
-                        processReturnAddress(31);//RegisterFile.updateRegister("$ra",RegisterFile.getProgramCounter());
+                        processReturnAddress(30);//RegisterFile.updateRegister("$ra",RegisterFile.getProgramCounter());
                         processBranch(operands[1]);
                      }
                   } 
@@ -982,7 +982,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      int[] operands = statement.getOperands();
                      if (RegisterFile.getValue(operands[0]) < 0)
                      {  // the "and link" part
-                        processReturnAddress(31);//RegisterFile.updateRegister("$ra",RegisterFile.getProgramCounter());
+                        processReturnAddress(30);//RegisterFile.updateRegister("$ra",RegisterFile.getProgramCounter());
                         processBranch(operands[1]);
                      }
                   }
@@ -1193,7 +1193,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                {
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   {
-                     findAndSimulateSyscall(RegisterFile.getValue(2),statement);
+                	 // Note: X18 is the platform-dependant code register, so that's what we're using for the moment.
+                     findAndSimulateSyscall(RegisterFile.getValue(18),statement);
                   }
                }));
          instructionList.add(
@@ -1234,7 +1235,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   {
                      int[] operands = statement.getOperands();
-                     processReturnAddress(31);// RegisterFile.updateRegister(31, RegisterFile.getProgramCounter());
+                     //TODO: maybe make this not a constant?
+                     processReturnAddress(30);// RegisterFile.updateRegister(31, RegisterFile.getProgramCounter());
                      processJump(
                         (RegisterFile.getProgramCounter() & 0xF0000000)
                                 | (operands[0] << 2));
@@ -1264,7 +1266,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   {
                      int[] operands = statement.getOperands();
-                     processReturnAddress(31);//RegisterFile.updateRegister(31, RegisterFile.getProgramCounter()); 
+                     processReturnAddress(30);//RegisterFile.updateRegister(31, RegisterFile.getProgramCounter()); 
                      processJump(RegisterFile.getValue(operands[0]));
                   }
                }));
