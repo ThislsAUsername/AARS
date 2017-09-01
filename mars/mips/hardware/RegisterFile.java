@@ -43,6 +43,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     public  class RegisterFile {
    
+      //TODO: figure out what the deal is with these
       public static final int GLOBAL_POINTER_REGISTER = 28;
       public static final int STACK_POINTER_REGISTER = 29;
    
@@ -61,7 +62,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          	new Register("X22", 22, 0),new Register("X23", 23, 0),
          	new Register("X24", 24, 0),new Register("X25", 25, 0),
          	new Register("X26", 26, 0),new Register("X27", 27, 0),
-         	new Register("X28", STACK_POINTER_REGISTER, Memory.stackPointer),
+         	new Register("X28", 28, Memory.stackPointer),
          	new Register("X29", 29, 0),
          	new Register("X30", 30, 0),new Register("XZR", 31, 0)
            };
