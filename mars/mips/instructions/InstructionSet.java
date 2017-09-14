@@ -1569,7 +1569,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                }));
       			
         ////////////// READ PSEUDO-INSTRUCTION SPECS FROM DATA FILE AND ADD //////////////////////
-         addPseudoInstructions();
+        // addPseudoInstructions();
       	
         ////////////// GET AND CREATE LIST OF SYSCALL FUNCTION OBJECTS ////////////////////
          syscallLoader = new SyscallLoader();
