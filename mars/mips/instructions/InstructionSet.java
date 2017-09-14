@@ -91,7 +91,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("add X1,X2,X3",
+                new BasicInstruction("ADD X1,X2,X3",
             	 "Addition with overflow : set X1 to (X2 plus X3)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100000",
@@ -114,7 +114,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub X1,X2,X3",
+                new BasicInstruction("SUB X1,X2,X3",
             	 "Subtraction with overflow : set X1 to (X2 minus X3)",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100010",
@@ -137,8 +137,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("addi X1,X2,-100",
-            	 "Addition immediate with overflow : set X1 to (X2 plus signed 16-bit immediate)",
+                new BasicInstruction("ADDI X1,X2,100",
+            	 "Addition immediate with overflow : set X1 to (X2 plus unsigned 16-bit immediate)",
                 BasicInstructionFormat.I_FORMAT,
                 "001000 sssss fffff tttttttttttttttt",
                 new SimulationCode()
@@ -150,8 +150,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      int add2 = operands[2] << 16 >> 16;
                      int sum = add1 + add2;
                   // overflow on A+B detected when A and B have same sign and A+B has other sign.
-                     if ((add1 >= 0 && add2 >= 0 && sum < 0)
-                        || (add1 < 0 && add2 < 0 && sum >= 0))
+                     // no need to check add2 since we know the sign already
+                     if (add1 >= 0 && sum < 0)
                      {
                         throw new ProcessingException(statement,
                             "arithmetic overflow",Exceptions.ARITHMETIC_OVERFLOW_EXCEPTION);
@@ -160,50 +160,28 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("addu X1,X2,X3",
-            	 "Addition unsigned without overflow : set X1 to (X2 plus X3), no overflow",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 sssss ttttt fffff 00000 100001",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1])
-                        + RegisterFile.getValue(operands[2]));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("subu X1,X2,X3",
-            	 "Subtraction unsigned without overflow : set X1 to (X2 minus X3), no overflow",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 sssss ttttt fffff 00000 100011",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1])
-                        - RegisterFile.getValue(operands[2]));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("addiu X1,X2,-100",
-            	 "Addition immediate unsigned without overflow : set X1 to (X2 plus signed 16-bit immediate), no overflow",
-                BasicInstructionFormat.I_FORMAT,
-                "001001 sssss fffff tttttttttttttttt",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1])
-                        + (operands[2] << 16 >> 16));
-                  }
-               }));
+                 new BasicInstruction("SUBI X1,X2,100",
+             	 "Subtraction immediate with overflow : set X1 to (X2 minus unsigned 16-bit immediate)",
+                 BasicInstructionFormat.I_FORMAT,
+                 "001000 sssss fffff tttttttttttttttt",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      int add1 = RegisterFile.getValue(operands[1]);
+                      int add2 = operands[2] << 16 >> 16;
+                      int sum = add1 - add2;
+                   // overflow on A+B detected when A and B have same sign and A+B has other sign.
+                      // no need to check add2 since we know the sign already
+                      if (add1 < 0 && sum >= 0)
+                      {
+                         throw new ProcessingException(statement,
+                             "arithmetic overflow",Exceptions.ARITHMETIC_OVERFLOW_EXCEPTION);
+                      }
+                      RegisterFile.updateRegister(operands[0], sum);
+                   }
+                }));
          instructionList.add(
                 new BasicInstruction("mult X1,X2",
             	 "Multiplication : Set hi to high-order 32 bits, lo to low-order 32 bits of the product of X1 and X2 (use mfhi to access hi, mflo to access lo)",
