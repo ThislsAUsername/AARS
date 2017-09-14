@@ -86,10 +86,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //         	new Register("$sp", STACK_POINTER_REGISTER, Memory.stackPointer),
 //         	new Register("$fp", 30, 0),new Register("$ra", 31, 0)
 //           };
-         												  
-      private static Register programCounter= new Register("pc", 32, Memory.textBaseAddress); 
+
+      private static Register programCounter= new Register("pc", 32, Memory.textBaseAddress);
       private static Register hi= new Register("hi", 33, 0);//this is an internal register with arbitrary number
       private static Register lo= new Register("lo", 34, 0);// this is an internal register with arbitrary number
+      private static Register processorFlags= new Register("rgf", 35, 0);
    		 
    
    	/**

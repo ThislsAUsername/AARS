@@ -410,7 +410,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
              /* X28   */  "stack pointer",
              /* X29   */  "frame pointer",
              /* X30   */  "return address (used by function call)",
-             /* XZR   */  "The Constant Value Zero",  
+             /* XZR   */  "The Constant Value Zero", 
+             /* pc    */  "program counter",
+             /* hi    */  "high-order word of multiply product, or divide remainder",
+             /* lo    */  "low-order word of multiply product, or divide quotient",
+             /* rgf   */  "processor flags"
              };
       
 //          Preserved for comparison TODO: delete
