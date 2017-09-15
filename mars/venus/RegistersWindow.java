@@ -100,6 +100,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          tableData[34][0]= "lo";
          tableData[34][1]= "";//new Integer(34);
          tableData[34][2]= NumberDisplayBaseChooser.formatNumber(RegisterFile.getValue(34),valueBase);
+
+         tableData[34][0]= "flags";
+         tableData[34][1]= "NZVC";//new Integer(34);
+         tableData[34][2]= "";
          
          return tableData;
       }
