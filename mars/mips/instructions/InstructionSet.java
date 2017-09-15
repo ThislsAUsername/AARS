@@ -753,6 +753,111 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
+                 new BasicInstruction("B target", 
+             	 "Branch unconditionally : Jump to statement at target address",
+             	 BasicInstructionFormat.J_FORMAT,
+                 "000010 ffffffffffffffffffffffffff",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      processJump(
+                         ((RegisterFile.getProgramCounter() & 0xF0000000)
+                                 | (operands[0] << 2)));            
+                   }
+                }));
+          instructionList.add(
+                 new BasicInstruction("BL target",
+                 "Branch with link : Set X30 to Program Counter (return address) then jump to statement at target address",
+             	 BasicInstructionFormat.J_FORMAT,
+                 "000011 ffffffffffffffffffffffffff",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      //TODO: maybe make this not a constant?
+                      processReturnAddress(30);// RegisterFile.updateRegister(31, RegisterFile.getProgramCounter());
+                      processJump(
+                         (RegisterFile.getProgramCounter() & 0xF0000000)
+                                 | (operands[0] << 2));
+                   }
+                }));
+          instructionList.add(
+                 new BasicInstruction("BR X1", 
+             	 "Branch register unconditionally : Jump to statement whose address is in X1",
+             	 BasicInstructionFormat.R_FORMAT,
+                 "000000 fffff 00000 00000 00000 001000",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      processJump(RegisterFile.getValue(operands[0]));
+                   }
+                }));
+          instructionList.add(
+                  new BasicInstruction("CBNZ X1,label",
+                  "Conditional branch not zero : Branch to statement at label's address if X1 is NOT zero",
+              	 BasicInstructionFormat.I_BRANCH_FORMAT,
+                  "000001 fffff 00000 ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       if (RegisterFile.getValue(operands[0]) != 0)
+                       {
+                          processBranch(operands[1]);
+                       }
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("CBZ X1,label",
+                  "Conditional branch zero : Branch to statement at label's address if X1 is zero",
+              	 BasicInstructionFormat.I_BRANCH_FORMAT,
+                  "000001 fffff 00000 ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       if (RegisterFile.getValue(operands[0]) == 0)
+                       {
+                          processBranch(operands[1]);
+                       }
+                    }
+                 }));
+          instructionList.add(
+                 new BasicInstruction("jalr X1,X2",
+                 "Jump and link register : Set X1 to Program Counter (return address) then jump to statement whose address is in X2",
+             	 BasicInstructionFormat.R_FORMAT,
+                 "000000 sssss 00000 fffff 00000 001001",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      processReturnAddress(operands[0]);//RegisterFile.updateRegister(operands[0], RegisterFile.getProgramCounter());
+                      processJump(RegisterFile.getValue(operands[1]));
+                   }
+                }));
+          instructionList.add(
+                 new BasicInstruction("jalr X1",
+                 "Jump and link register : Set $ra to Program Counter (return address) then jump to statement whose address is in X1",
+             	 BasicInstructionFormat.R_FORMAT,
+                 "000000 fffff 00000 11111 00000 001001",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      processReturnAddress(30);//RegisterFile.updateRegister(31, RegisterFile.getProgramCounter()); 
+                      processJump(RegisterFile.getValue(operands[0]));
+                   }
+                }));
+         instructionList.add(
                 new BasicInstruction("beq X1,X2,label",
                 "Branch if equal : Branch to statement at label's address if X1 and X2 are equal",
             	 BasicInstructionFormat.I_BRANCH_FORMAT,
@@ -896,79 +1001,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   {
                 	 // Note: X18 is the platform-dependant code register, so that's what we're using for the moment.
                      findAndSimulateSyscall(RegisterFile.getValue(18),statement);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("j target", 
-            	 "Jump unconditionally : Jump to statement at target address",
-            	 BasicInstructionFormat.J_FORMAT,
-                "000010 ffffffffffffffffffffffffff",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     processJump(
-                        ((RegisterFile.getProgramCounter() & 0xF0000000)
-                                | (operands[0] << 2)));            
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("jr X1", 
-            	 "Jump register unconditionally : Jump to statement whose address is in X1",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 fffff 00000 00000 00000 001000",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     processJump(RegisterFile.getValue(operands[0]));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("jal target",
-                "Jump and link : Set $ra to Program Counter (return address) then jump to statement at target address",
-            	 BasicInstructionFormat.J_FORMAT,
-                "000011 ffffffffffffffffffffffffff",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     //TODO: maybe make this not a constant?
-                     processReturnAddress(30);// RegisterFile.updateRegister(31, RegisterFile.getProgramCounter());
-                     processJump(
-                        (RegisterFile.getProgramCounter() & 0xF0000000)
-                                | (operands[0] << 2));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("jalr X1,X2",
-                "Jump and link register : Set X1 to Program Counter (return address) then jump to statement whose address is in X2",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 sssss 00000 fffff 00000 001001",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     processReturnAddress(operands[0]);//RegisterFile.updateRegister(operands[0], RegisterFile.getProgramCounter());
-                     processJump(RegisterFile.getValue(operands[1]));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("jalr X1",
-                "Jump and link register : Set $ra to Program Counter (return address) then jump to statement whose address is in X1",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 fffff 00000 11111 00000 001001",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     processReturnAddress(30);//RegisterFile.updateRegister(31, RegisterFile.getProgramCounter()); 
-                     processJump(RegisterFile.getValue(operands[0]));
                   }
                }));
          instructionList.add(
