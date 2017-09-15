@@ -46,21 +46,21 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     public class InstructionSet
    {
-      private ArrayList instructionList;
-	  private ArrayList opcodeMatchMaps;
+      private ArrayList<Instruction> instructionList;
+	  private ArrayList<MatchMap> opcodeMatchMaps;
       private SyscallLoader syscallLoader;
     /**
      * Creates a new InstructionSet object.
      */
        public InstructionSet()
       {
-         instructionList = new ArrayList();
+         instructionList = new ArrayList<Instruction>();
       
       }
     /**
      * Retrieve the current instruction set.
      */
-       public ArrayList getInstructionList()
+       public ArrayList<Instruction> getInstructionList()
       {
          return instructionList;
       
@@ -608,7 +608,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      {
                         int address = RegisterFile.getValue(operands[2]) + operands[1];
                         int result = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=address % Globals.memory.WORD_LENGTH_BYTES; i++) {
+                        for (int i=0; i<=address % Memory.WORD_LENGTH_BYTES; i++) {
                            result = Binary.setByte(result,3-i,Globals.memory.getByte(address-i));
                         }
                         RegisterFile.updateRegister(operands[0], result);
@@ -633,7 +633,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      {
                         int address = RegisterFile.getValue(operands[2]) + operands[1];
                         int result = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=3-(address % Globals.memory.WORD_LENGTH_BYTES); i++) {
+                        for (int i=0; i<=3-(address % Memory.WORD_LENGTH_BYTES); i++) {
                            result = Binary.setByte(result,i,Globals.memory.getByte(address+i));
                         }
                         RegisterFile.updateRegister(operands[0], result);
@@ -705,7 +705,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      {
                         int address = RegisterFile.getValue(operands[2]) + operands[1];
                         int source = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=address % Globals.memory.WORD_LENGTH_BYTES; i++) {
+                        for (int i=0; i<=address % Memory.WORD_LENGTH_BYTES; i++) {
                            Globals.memory.setByte(address-i,Binary.getByte(source,3-i));
                         }
                      } 
@@ -729,7 +729,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      {
                         int address = RegisterFile.getValue(operands[2]) + operands[1];
                         int source = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=3-(address % Globals.memory.WORD_LENGTH_BYTES); i++) {
+                        for (int i=0; i<=3-(address % Memory.WORD_LENGTH_BYTES); i++) {
                            Globals.memory.setByte(address+i,Binary.getByte(source,i));
                         }
                      } 
@@ -1705,16 +1705,16 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      *  @param name operator mnemonic (e.g. addi, sw,...)
      *  @return list of corresponding Instruction object(s), or null if not found.
      */
-       public ArrayList matchOperator(String name)
+       public ArrayList<Instruction> matchOperator(String name)
       {
-         ArrayList matchingInstructions = null;
+         ArrayList<Instruction> matchingInstructions = null;
         // Linear search for now....
          for (int i = 0; i < instructionList.size(); i++)
          {
             if (((Instruction) instructionList.get(i)).getName().equalsIgnoreCase(name))
             {
                if (matchingInstructions == null) 
-                  matchingInstructions = new ArrayList();
+                  matchingInstructions = new ArrayList<Instruction>();
                matchingInstructions.add(instructionList.get(i));
             }
          }
@@ -1729,9 +1729,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      *  @param name a string
      *  @return list of matching Instruction object(s), or null if none match.
      */
-       public ArrayList prefixMatchOperator(String name)
+       public ArrayList<Instruction> prefixMatchOperator(String name)
       {
-         ArrayList matchingInstructions = null;
+         ArrayList<Instruction> matchingInstructions = null;
         // Linear search for now....
          if (name != null) {
             for (int i = 0; i < instructionList.size(); i++)
@@ -1739,7 +1739,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                if (((Instruction) instructionList.get(i)).getName().toLowerCase().startsWith(name.toLowerCase()))
                {
                   if (matchingInstructions == null) 
-                     matchingInstructions = new ArrayList();
+                     matchingInstructions = new ArrayList<Instruction>();
                   matchingInstructions.add(instructionList.get(i));
                }
             }
