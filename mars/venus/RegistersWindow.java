@@ -82,7 +82,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    	
        public Object[][] setupWindow(){
          int valueBase = NumberDisplayBaseChooser.getBase(settings.getDisplayValuesInHex());
-         tableData = new Object[35][3];
+         tableData = new Object[36][3];
          registers = RegisterFile.getRegisters();
          for(int i=0; i< registers.length; i++){
             tableData[i][0]= registers[i].getName();
@@ -101,9 +101,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          tableData[34][1]= "";//new Integer(34);
          tableData[34][2]= NumberDisplayBaseChooser.formatNumber(RegisterFile.getValue(34),valueBase);
 
-         tableData[34][0]= "flags";
-         tableData[34][1]= "NZVC";//new Integer(34);
-         tableData[34][2]= "";
+         tableData[35][0]= "flags";
+         tableData[35][1]= "NZVC";//new Integer(34);
+         tableData[35][2]= "0000";
          
          return tableData;
       }
@@ -156,6 +156,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          updateRegisterUnsignedValue(32, RegisterFile.getProgramCounter(), base);
          updateRegisterValue(33, RegisterFile.getValue(33), base);
          updateRegisterValue(34, RegisterFile.getValue(34), base);
+         // Set flag string. No function since it's unique.
+         ((RegTableModel)table.getModel()).setDisplayAndModelValueAt(RegisterFile.flagString(), 35, 2);
       }
    	
      /**

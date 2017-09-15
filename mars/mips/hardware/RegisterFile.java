@@ -96,6 +96,74 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       private static Register hi= new Register("hi", 33, 0);//this is an internal register with arbitrary number
       private static Register lo= new Register("lo", 34, 0);// this is an internal register with arbitrary number
   
+      
+
+  	/**
+  	 * Gets the value of the Negative flag
+  	 * @return the boolean value of the Negative flag
+  	 **/
+
+  	public static boolean flagN() {
+  		return flagN;
+  	}
+
+  	/**
+  	 * Gets the value of the Zero flag
+  	 * @return the boolean value of the Zero flag
+  	 **/
+
+  	public static boolean flagZ() {
+  		return flagZ;
+  	}
+
+  	/**
+  	 * Gets the value of the oVerflow flag
+  	 * @return the boolean value of the oVerflow flag
+  	 **/
+
+  	public static boolean flagV() {
+  		return flagV;
+  	}
+
+  	/**
+  	 * Gets the value of the Carry flag
+  	 * @return the boolean value of the Carry flag
+  	 **/
+
+  	public static boolean flagC() {
+  		return flagN;
+  	}
+
+  	/**
+  	 * Gets a string that represents the flag values (NZVC) in order, as either a one or zero.
+  	 * @return a string with 4 characters
+  	 **/
+
+  	public static String flagString() {
+  		String result = "" + (flagN ? 1 : 0) + (flagZ ? 1 : 0) + (flagV ? 1 : 0) + (flagC ? 1 : 0);
+  		return result;
+  	}
+
+  	/**
+  	 * Sets the processor flags based on input.
+  	 * @param value
+  	 * 				int that determines the Negative and Zero flag values
+  	 * @param overflow
+  	 * 				determines the oVerflow flag value
+  	 * @param carry
+  	 * 				determines the Carry flag value
+  	 **/
+
+  	public static void setFlags(int value, boolean overflow, boolean carry) {
+  		flagN = Math.abs(value) != value;
+  		flagZ = 0 == value;
+  		flagV = overflow;
+  		flagC = carry;
+  	}
+  	
+  	
+  	
+  	
 	/**
 	 * Method for displaying the register values for debugging.
 	 **/
