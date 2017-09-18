@@ -189,9 +189,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	public static int updateRegister(int num, int val) {
 		int old = 0;
-		if (num == 0) {
-			// System.out.println("You can not change the value of the zero
-			// register.");
+		if (num == 31) {
+			// System.out.println("You can not change the value of the zero  register.");
 		} else {
 			for (int i = 0; i < regFile.length; i++) {
 				if (regFile[i].getNumber() == num) {

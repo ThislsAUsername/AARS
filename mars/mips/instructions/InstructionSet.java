@@ -740,6 +740,19 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
+                 new BasicInstruction("lui X1,label",
+                 "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
+             	 BasicInstructionFormat.I_FORMAT,
+                 "001111 00000 fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      RegisterFile.updateRegister(operands[0], operands[1]);
+                   }
+                }));
+         instructionList.add(
                 new BasicInstruction("lui X1,100",
                 "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
             	 BasicInstructionFormat.I_FORMAT,
