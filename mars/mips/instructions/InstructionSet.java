@@ -459,7 +459,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("and X1,X2,X3",
+                new BasicInstruction("AND X1,X2,X3",
             	 "Bitwise AND : Set X1 to bitwise AND of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100100",
@@ -474,6 +474,57 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
+                 new BasicInstruction("ANDS X1,X2,X3",
+             	 "Bitwise AND and set flags: Set X1 to bitwise AND of X2 and X3, then set Negative and Zero without touching Carry or oVerflow",
+                 BasicInstructionFormat.R_FORMAT,
+                 "000000 sssss ttttt fffff 00000 100100",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      int andResult = RegisterFile.getValue(operands[1]) & RegisterFile.getValue(operands[2]);
+                      RegisterFile.updateRegister(operands[0],andResult);
+                      // From what I can tell, the ARM ARM indicates that oVerflow is always unaffected
+                      // 	and Carry is unaffected if there is no shift.
+                      RegisterFile.setFlags(andResult, RegisterFile.flagV(), RegisterFile.flagC());
+                   }
+                }));
+         instructionList.add(
+                 new BasicInstruction("ANDI X1,X2,100",
+             	 "Bitwise AND immediate : Set X1 to bitwise AND of X2 and zero-extended 16-bit immediate",
+                 BasicInstructionFormat.I_FORMAT,
+                 "001100 sssss fffff tttttttttttttttt",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                   // ANDing with 0x0000FFFF zero-extends the immediate (high 16 bits always 0).
+                      RegisterFile.updateRegister(operands[0],
+                         RegisterFile.getValue(operands[1])
+                         & (operands[2] & 0x0000FFFF));
+                   }
+                }));
+         instructionList.add(
+                 new BasicInstruction("ANDIS X1,X2,100",
+             	 "Bitwise AND immediate and set flags: Set X1 to bitwise AND of X2 and zero-extended 16-bit immediate, then set Negative and Zero without touching Carry or oVerflow",
+                 BasicInstructionFormat.I_FORMAT,
+                 "001100 sssss fffff tttttttttttttttt",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                   // ANDing with 0x0000FFFF zero-extends the immediate (high 16 bits always 0).
+                      int andResult = RegisterFile.getValue(operands[1]) & (operands[2] & 0x0000FFFF);
+                      RegisterFile.updateRegister(operands[0],andResult);
+                      // From what I can tell, the ARM ARM indicates that oVerflow is always unaffected
+                      // 	and Carry is unaffected if there is no shift.
+                      RegisterFile.setFlags(andResult, RegisterFile.flagV(), RegisterFile.flagC());
+                   }
+                }));
+         instructionList.add(
                 new BasicInstruction("or X1,X2,X3",
             	 "Bitwise OR : Set X1 to bitwise OR of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
@@ -486,22 +537,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      RegisterFile.updateRegister(operands[0],
                         RegisterFile.getValue(operands[1])
                         | RegisterFile.getValue(operands[2]));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("andi X1,X2,100",
-            	 "Bitwise AND immediate : Set X1 to bitwise AND of X2 and zero-extended 16-bit immediate",
-                BasicInstructionFormat.I_FORMAT,
-                "001100 sssss fffff tttttttttttttttt",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                  // ANDing with 0x0000FFFF zero-extends the immediate (high 16 bits always 0).
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1])
-                        & (operands[2] & 0x0000FFFF));
                   }
                }));
          instructionList.add(
