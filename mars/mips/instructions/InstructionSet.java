@@ -931,6 +931,21 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                                  | (operands[0] << 2)));            
                    }
                 }));
+         instructionList.add(
+                 new BasicInstruction("B.AL target", 
+             	 "Branch always : Jump to statement at target address",
+             	 BasicInstructionFormat.J_FORMAT,
+                 "000010 ffffffffffffffffffffffffff",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      processJump(
+                         ((RegisterFile.getProgramCounter() & 0xF0000000)
+                                 | (operands[0] << 2)));            
+                   }
+                }));
           instructionList.add(
                  new BasicInstruction("BL target",
                  "Branch with link : Set X30 to Program Counter (return address) then jump to statement at target address",
@@ -991,6 +1006,294 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                        {
                           processBranch(operands[1]);
                        }
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.EQ target", 
+              	 "Branch on Equal: Jump to statement at target address if Zero flag is true",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagZ())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.NE target", 
+              	 "Branch on NOT equal: Jump to statement at target address if Zero flag is false",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (!RegisterFile.flagZ())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.CS target", 
+              	 "Branch on Carry Set: Jump to statement at target address if Carry flag is true",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagC())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.HS target", 
+              	 "Branch on Unsigned Higher/Same: Jump to statement at target address if Carry flag is true",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagC())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.CC target", 
+              	 "Branch on Carry Clear: Jump to statement at target address if Carry flag is false",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (!RegisterFile.flagC())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.LO target", 
+              	 "Branch on Unsigned Lower: Jump to statement at target address if Carry flag is false",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (!RegisterFile.flagC())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.MI target", 
+              	 "Branch on Minus: Jump to statement at target address if Negative flag is true",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagN())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.PL target", 
+              	 "Branch on Plus: Jump to statement at target address if Negative flag is false",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (!RegisterFile.flagN())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.VS target", 
+              	 "Branch on Overflow: Jump to statement at target address if oVerflow flag is true",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagV())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.VC target", 
+              	 "Branch on No overflow: Jump to statement at target address if oVerflow flag is false",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (!RegisterFile.flagV())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.HI target", 
+              	 "Branch on Unsigned Higher: Jump to statement at target address if Carry is true and Zero is false",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagC() && !RegisterFile.flagZ())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.LS target", 
+              	 "Branch on Unsigned Lower or Same: Jump to statement at target address if Carry is false or Zero is true",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (!RegisterFile.flagC() || RegisterFile.flagZ())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.GE target", 
+              	 "Branch on Signed Greater Than/Equal: Jump to statement at target address if Negative and oVerflow have the same value",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagN() == RegisterFile.flagV())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.GT target", 
+              	 "Branch on Signed Greater Than: Jump to statement at target address if Negative and oVerflow have the same value, and Zero is false",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if ((RegisterFile.flagN() == RegisterFile.flagV()) && !RegisterFile.flagZ())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.LT target", 
+              	 "Branch on Signed Less Than: Jump to statement at target address if Negative and oVerflow have different values",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                     	if (RegisterFile.flagN() != RegisterFile.flagV())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("B.LE target", 
+              	 "Branch on Signed Less Than/Equal: Jump to statement at target address if Negative and oVerflow have different values, or if Zero is true",
+              	 BasicInstructionFormat.J_FORMAT,
+                  "000010 ffffffffffffffffffffffffff",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                      	if ((RegisterFile.flagN() != RegisterFile.flagV()) || RegisterFile.flagZ())
+                     	{
+ 				            int[] operands = statement.getOperands();
+ 				            processJump(
+ 				               ((RegisterFile.getProgramCounter() & 0xF0000000)
+ 				                       | (operands[0] << 2)));
+                     	}
                     }
                  }));
           instructionList.add(
