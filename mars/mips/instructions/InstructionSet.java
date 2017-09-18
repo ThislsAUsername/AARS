@@ -218,6 +218,35 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
+                 new BasicInstruction("ADDIS X1,X2,100",
+             	 "Add an immediate and set flags : set X1 to (X2 plus unsigned 16-bit immediate), and set the processor flags",
+                 BasicInstructionFormat.R_FORMAT,
+                 "000000 sssss ttttt fffff 00000 100000",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      long add1 = RegisterFile.getValue(operands[1]);
+                      long add2 = operands[2] << 16 >> 16; // only difference with ADDS
+                      long sum = add1 + add2;
+                      // Stolen from https://static.docs.arm.com/ddi0553/a/DDI0553A_c_armv8m_arm.pdf#E26.AddWithCarry
+                      // Except it's probably not stealing if you're simply implementing a specification?
+                      // For carry, we have to simulate the behavior of the processor itself
+                      // The two's complement math will put out a carry in the case of subtraction
+                      // 	because the physical register isn't infinite length.
+                      add1 &= 0xFFFFFFFFL;
+                      add2 &= 0xFFFFFFFFL;
+                      boolean carry = 0 < (add1 + add2)>>32;
+                      // binary debug
+                      //System.out.println(""+Binary.longToBinaryString(add1)+" +\n"+Binary.longToBinaryString(add2)+" =\n"+Binary.longToBinaryString(add1 + add2)+" >>32= "+((add1 + add2)>>32));
+                      // For overflow, we truncate to int, then sign-extend it back to long and see if it changes.
+                      boolean overflow = (long) (int) sum != sum;
+                      RegisterFile.setFlags((int) sum, overflow, carry);
+                      RegisterFile.updateRegister(operands[0], (int) sum);
+                   }
+                }));
+         instructionList.add(
                  new BasicInstruction("SUBI X1,X2,100",
              	 "Subtraction immediate with overflow : set X1 to (X2 minus unsigned 16-bit immediate)",
                  BasicInstructionFormat.I_FORMAT,
@@ -238,6 +267,35 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                              "arithmetic overflow",Exceptions.ARITHMETIC_OVERFLOW_EXCEPTION);
                       }
                       RegisterFile.updateRegister(operands[0], sum);
+                   }
+                }));
+         instructionList.add(
+                 new BasicInstruction("SUBIS X1,X2,100",
+             	 "Subtract an immediate and set flags : set X1 to (X2 minus unsigned 16-bit immediate), and set the processor flags",
+                 BasicInstructionFormat.R_FORMAT,
+                 "000000 sssss ttttt fffff 00000 100000",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      long add1 = RegisterFile.getValue(operands[1]);
+                      long add2 = -1*operands[2] << 16 >> 16; // only difference with ADDIS
+                      long sum = add1 + add2;
+                      // Stolen from https://static.docs.arm.com/ddi0553/a/DDI0553A_c_armv8m_arm.pdf#E26.AddWithCarry
+                      // Except it's probably not stealing if you're simply implementing a specification?
+                      // For carry, we have to simulate the behavior of the processor itself
+                      // The two's complement math will put out a carry in the case of subtraction
+                      // 	because the physical register isn't infinite length.
+                      add1 &= 0xFFFFFFFFL;
+                      add2 &= 0xFFFFFFFFL;
+                      boolean carry = 0 < (add1 + add2)>>32;
+                      // binary debug
+                      //System.out.println(""+Binary.longToBinaryString(add1)+" +\n"+Binary.longToBinaryString(add2)+" =\n"+Binary.longToBinaryString(add1 + add2)+" >>32= "+((add1 + add2)>>32));
+                      // For overflow, we truncate to int, then sign-extend it back to long and see if it changes.
+                      boolean overflow = (long) (int) sum != sum;
+                      RegisterFile.setFlags((int) sum, overflow, carry);
+                      RegisterFile.updateRegister(operands[0], (int) sum);
                    }
                 }));
          instructionList.add(
