@@ -525,7 +525,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    }
                 }));
          instructionList.add(
-                new BasicInstruction("or X1,X2,X3",
+                new BasicInstruction("ORR X1,X2,X3",
             	 "Bitwise OR : Set X1 to bitwise OR of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100101",
@@ -540,7 +540,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("ori X1,X2,100",
+                new BasicInstruction("ORRI X1,X2,100",
             	 "Bitwise OR immediate : Set X1 to bitwise OR of X2 and zero-extended 16-bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "001101 sssss fffff tttttttttttttttt",
@@ -556,22 +556,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("nor X1,X2,X3",
-            	 "Bitwise NOR : Set X1 to bitwise NOR of X2 and X3",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 sssss ttttt fffff 00000 100111",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(operands[0],
-                        ~(RegisterFile.getValue(operands[1])
-                        | RegisterFile.getValue(operands[2])));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("xor X1,X2,X3",
+                new BasicInstruction("EOR X1,X2,X3",
             	 "Bitwise XOR (exclusive OR) : Set X1 to bitwise XOR of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 sssss ttttt fffff 00000 100110",
@@ -586,7 +571,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("xori X1,X2,100",
+                new BasicInstruction("EORI X1,X2,100",
             	 "Bitwise XOR immediate : Set X1 to bitwise XOR of X2 and zero-extended 16-bit immediate",
                 BasicInstructionFormat.I_FORMAT,
                 "001110 sssss fffff tttttttttttttttt",
