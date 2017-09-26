@@ -587,8 +587,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));					
          instructionList.add(
-                new BasicInstruction("sll X1,X2,10",
-            	 "Shift left logical : Set X1 to result of shifting X2 left by number of bits specified by immediate",
+                new BasicInstruction("LSL X1,X2,10",
+            	 "Logical shift left: Set X1 to result of shifting X2 left by number of bits specified by immediate",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 sssss fffff ttttt 000000",
                 new SimulationCode()
@@ -601,24 +601,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sllv X1,X2,X3",
-            	 "Shift left logical variable : Set X1 to result of shifting X2 left by number of bits specified by value in low-order 5 bits of X3",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 ttttt sssss fffff 00000 000100",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                  // Mask all but low 5 bits of register containing shamt.
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1]) << 
-                        (RegisterFile.getValue(operands[2]) & 0x0000001F));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("srl X1,X2,10",
-            	 "Shift right logical : Set X1 to result of shifting X2 right by number of bits specified by immediate",
+                new BasicInstruction("LSR X1,X2,10",
+            	 "Shift right : Set X1 to result of shifting X2 right by number of bits specified by immediate",
                 BasicInstructionFormat.R_FORMAT,
                 "000000 00000 sssss fffff ttttt 000010",
                 new SimulationCode()
@@ -629,53 +613,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   // must zero-fill, so use ">>>" instead of ">>".
                      RegisterFile.updateRegister(operands[0],
                         RegisterFile.getValue(operands[1]) >>> operands[2]);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("sra X1,X2,10",
-                "Shift right arithmetic : Set X1 to result of sign-extended shifting X2 right by number of bits specified by immediate",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 00000 sssss fffff ttttt 000011",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                  // must sign-fill, so use ">>".
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1]) >> operands[2]);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("srav X1,X2,X3",
-            	 "Shift right arithmetic variable : Set X1 to result of sign-extended shifting X2 right by number of bits specified by value in low-order 5 bits of X3",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 ttttt sssss fffff 00000 000111",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                  // Mask all but low 5 bits of register containing shamt.Use ">>" to sign-fill.
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1]) >> 
-                        (RegisterFile.getValue(operands[2]) & 0x0000001F));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("srlv X1,X2,X3",
-            	 "Shift right logical variable : Set X1 to result of shifting X2 right by number of bits specified by value in low-order 5 bits of X3",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 ttttt sssss fffff 00000 000110",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                  // Mask all but low 5 bits of register containing shamt.Use ">>>" to zero-fill.
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(operands[1]) >>> 
-                        (RegisterFile.getValue(operands[2]) & 0x0000001F));
                   }
                }));
          instructionList.add(
