@@ -352,6 +352,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      break; 
                   // these are other single-character tokens
                   case ':' : 
+                  case '[' :
+                  case ']' :
                   case '(' :
                   case ')' :
                      if (tokenPos > 0) {

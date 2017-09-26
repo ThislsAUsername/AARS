@@ -616,7 +616,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lw X1,-100(X2)",
+                new BasicInstruction("lw X1, [X2,-100]",
             	 "Load word : Set X1 to contents of effective memory word address",
                 BasicInstructionFormat.I_FORMAT,
                 "100011 ttttt fffff ssssssssssssssss",
@@ -629,7 +629,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      {
                         RegisterFile.updateRegister(operands[0],
                             Globals.memory.getWord(
-                            RegisterFile.getValue(operands[2]) + operands[1]));
+                            RegisterFile.getValue(operands[1]) + operands[2]));
                      } 
                          catch (AddressErrorException e)
                         {
