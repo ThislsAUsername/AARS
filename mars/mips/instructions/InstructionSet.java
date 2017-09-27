@@ -1008,28 +1008,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      findAndSimulateSyscall(RegisterFile.getValue(18),statement);
                   }
                }));
-         instructionList.add(
-                 new BasicInstruction("lw X1, [X2,-100]",
-             	 "Load word : Set X1 to contents of effective memory word address",
-                 BasicInstructionFormat.I_FORMAT,
-                 "100011 ttttt fffff ssssssssssssssss",
-                 new SimulationCode()
-                {
-                    public void simulate(ProgramStatement statement) throws ProcessingException
-                   {
-                      int[] operands = statement.getOperands();
-                      try
-                      {
-                         RegisterFile.updateRegister(operands[0],
-                             Globals.memory.getWord(
-                             RegisterFile.getValue(operands[1]) + operands[2]));
-                      } 
-                          catch (AddressErrorException e)
-                         {
-                            throw new ProcessingException(statement, e);
-                         }
-                   }
-                }));
           instructionList.add(
                  new BasicInstruction("ll X1,-100(X2)",
                  "Load linked : Paired with Store Conditional (sc) to perform atomic read-modify-write.  Treated as equivalent to Load Word (lw) because MARS does not simulate multiple processors.",
@@ -1053,28 +1031,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                          RegisterFile.updateRegister(operands[0],
                              Globals.memory.getWord(
                              RegisterFile.getValue(operands[2]) + operands[1]));
-                      } 
-                          catch (AddressErrorException e)
-                         {
-                            throw new ProcessingException(statement, e);
-                         }
-                   }
-                }));
-          instructionList.add(
-                 new BasicInstruction("sw X1,-100(X2)",
-                 "Store word : Store contents of X1 into effective memory word address",
-             	 BasicInstructionFormat.I_FORMAT,
-                 "101011 ttttt fffff ssssssssssssssss",
-                 new SimulationCode()
-                {
-                    public void simulate(ProgramStatement statement) throws ProcessingException
-                   {
-                      int[] operands = statement.getOperands();
-                      try
-                      {
-                         Globals.memory.setWord(
-                             RegisterFile.getValue(operands[2]) + operands[1],
-                             RegisterFile.getValue(operands[0]));
                       } 
                           catch (AddressErrorException e)
                          {
@@ -1107,6 +1063,50 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       RegisterFile.updateRegister(operands[0],1); // always succeeds
                    }
                 }));
+          instructionList.add(
+                  new BasicInstruction("LDUR X1, [X2,-100]",
+              	 "Load word : Set X1 to contents of effective memory word address",
+                  BasicInstructionFormat.I_FORMAT,
+                  "100011 ttttt fffff ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       try
+                       {
+                          RegisterFile.updateRegister(operands[0],
+                              Globals.memory.getWord(
+                              RegisterFile.getValue(operands[1]) + operands[2]));
+                       } 
+                           catch (AddressErrorException e)
+                          {
+                             throw new ProcessingException(statement, e);
+                          }
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("STUR X1,[X2,-100]",
+                  "Store word : Store contents of X1 into effective memory word address",
+              	 BasicInstructionFormat.I_FORMAT,
+                  "101011 ttttt fffff ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       try
+                       {
+                          Globals.memory.setWord(
+                              RegisterFile.getValue(operands[1]) + operands[2],
+                              RegisterFile.getValue(operands[0]));
+                       } 
+                           catch (AddressErrorException e)
+                          {
+                             throw new ProcessingException(statement, e);
+                          }
+                    }
+                 }));
           instructionList.add(
                   new BasicInstruction("lui X1,label",
                   "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
