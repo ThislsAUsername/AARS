@@ -616,131 +616,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lw X1, [X2,-100]",
-            	 "Load word : Set X1 to contents of effective memory word address",
-                BasicInstructionFormat.I_FORMAT,
-                "100011 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        RegisterFile.updateRegister(operands[0],
-                            Globals.memory.getWord(
-                            RegisterFile.getValue(operands[1]) + operands[2]));
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("ll X1,-100(X2)",
-                "Load linked : Paired with Store Conditional (sc) to perform atomic read-modify-write.  Treated as equivalent to Load Word (lw) because MARS does not simulate multiple processors.",
-            	 BasicInstructionFormat.I_FORMAT,
-                "110000 ttttt fffff ssssssssssssssss",
-            	 // The ll (load link) command is supposed to be the front end of an atomic
-            	 // operation completed by sc (store conditional), with success or failure
-            	 // of the store depending on whether the memory block containing the
-            	 // loaded word is modified in the meantime by a different processor.
-            	 // Since MARS, like SPIM simulates only a single processor, the store
-            	 // conditional will always succeed so there is no need to do anything
-            	 // special here.  In that case, ll is same as lw.  And sc does the same
-            	 // thing as sw except in addition it writes 1 into the source register.
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        RegisterFile.updateRegister(operands[0],
-                            Globals.memory.getWord(
-                            RegisterFile.getValue(operands[2]) + operands[1]));
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("sw X1,-100(X2)",
-                "Store word : Store contents of X1 into effective memory word address",
-            	 BasicInstructionFormat.I_FORMAT,
-                "101011 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        Globals.memory.setWord(
-                            RegisterFile.getValue(operands[2]) + operands[1],
-                            RegisterFile.getValue(operands[0]));
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("sc X1,-100(X2)",
-                "Store conditional : Paired with Load Linked (ll) to perform atomic read-modify-write.  Stores X1 value into effective address, then sets X1 to 1 for success.  Always succeeds because MARS does not simulate multiple processors.",
-            	 BasicInstructionFormat.I_FORMAT,
-                "111000 ttttt fffff ssssssssssssssss",
-            	 // See comments with "ll" instruction above.  "sc" is implemented
-            	 // like "sw", except that 1 is placed in the source register.
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        Globals.memory.setWord(
-                            RegisterFile.getValue(operands[2]) + operands[1],
-                            RegisterFile.getValue(operands[0]));
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                     RegisterFile.updateRegister(operands[0],1); // always succeeds
-                  }
-               }));
-         instructionList.add(
-                 new BasicInstruction("lui X1,label",
-                 "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
-             	 BasicInstructionFormat.I_FORMAT,
-                 "001111 00000 fffff ssssssssssssssss",
-                 new SimulationCode()
-                {
-                    public void simulate(ProgramStatement statement) throws ProcessingException
-                   {
-                      int[] operands = statement.getOperands();
-                      RegisterFile.updateRegister(operands[0], operands[1]);
-                   }
-                }));
-         instructionList.add(
-                new BasicInstruction("lui X1,100",
-                "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
-            	 BasicInstructionFormat.I_FORMAT,
-                "001111 00000 fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(operands[0], operands[1] << 16);
-                  }
-               }));
-         instructionList.add(
                  new BasicInstruction("B target", 
              	 "Branch unconditionally : Jump to statement at target address",
              	 BasicInstructionFormat.J_FORMAT,
@@ -1133,6 +1008,131 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      findAndSimulateSyscall(RegisterFile.getValue(18),statement);
                   }
                }));
+         instructionList.add(
+                 new BasicInstruction("lw X1, [X2,-100]",
+             	 "Load word : Set X1 to contents of effective memory word address",
+                 BasicInstructionFormat.I_FORMAT,
+                 "100011 ttttt fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      try
+                      {
+                         RegisterFile.updateRegister(operands[0],
+                             Globals.memory.getWord(
+                             RegisterFile.getValue(operands[1]) + operands[2]));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                   }
+                }));
+          instructionList.add(
+                 new BasicInstruction("ll X1,-100(X2)",
+                 "Load linked : Paired with Store Conditional (sc) to perform atomic read-modify-write.  Treated as equivalent to Load Word (lw) because MARS does not simulate multiple processors.",
+             	 BasicInstructionFormat.I_FORMAT,
+                 "110000 ttttt fffff ssssssssssssssss",
+             	 // The ll (load link) command is supposed to be the front end of an atomic
+             	 // operation completed by sc (store conditional), with success or failure
+             	 // of the store depending on whether the memory block containing the
+             	 // loaded word is modified in the meantime by a different processor.
+             	 // Since MARS, like SPIM simulates only a single processor, the store
+             	 // conditional will always succeed so there is no need to do anything
+             	 // special here.  In that case, ll is same as lw.  And sc does the same
+             	 // thing as sw except in addition it writes 1 into the source register.
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      try
+                      {
+                         RegisterFile.updateRegister(operands[0],
+                             Globals.memory.getWord(
+                             RegisterFile.getValue(operands[2]) + operands[1]));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                   }
+                }));
+          instructionList.add(
+                 new BasicInstruction("sw X1,-100(X2)",
+                 "Store word : Store contents of X1 into effective memory word address",
+             	 BasicInstructionFormat.I_FORMAT,
+                 "101011 ttttt fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      try
+                      {
+                         Globals.memory.setWord(
+                             RegisterFile.getValue(operands[2]) + operands[1],
+                             RegisterFile.getValue(operands[0]));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                   }
+                }));
+          instructionList.add(
+                 new BasicInstruction("sc X1,-100(X2)",
+                 "Store conditional : Paired with Load Linked (ll) to perform atomic read-modify-write.  Stores X1 value into effective address, then sets X1 to 1 for success.  Always succeeds because MARS does not simulate multiple processors.",
+             	 BasicInstructionFormat.I_FORMAT,
+                 "111000 ttttt fffff ssssssssssssssss",
+             	 // See comments with "ll" instruction above.  "sc" is implemented
+             	 // like "sw", except that 1 is placed in the source register.
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      try
+                      {
+                         Globals.memory.setWord(
+                             RegisterFile.getValue(operands[2]) + operands[1],
+                             RegisterFile.getValue(operands[0]));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                      RegisterFile.updateRegister(operands[0],1); // always succeeds
+                   }
+                }));
+          instructionList.add(
+                  new BasicInstruction("lui X1,label",
+                  "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
+              	 BasicInstructionFormat.I_FORMAT,
+                  "001111 00000 fffff ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       RegisterFile.updateRegister(operands[0], operands[1]);
+                    }
+                 }));
+          instructionList.add(
+                 new BasicInstruction("lui X1,100",
+                 "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
+             	 BasicInstructionFormat.I_FORMAT,
+                 "001111 00000 fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      RegisterFile.updateRegister(operands[0], operands[1] << 16);
+                   }
+                }));
          instructionList.add(
                 new BasicInstruction("lb X1,-100(X2)",
                 "Load byte : Set X1 to sign-extended 8-bit value from effective memory byte address",
