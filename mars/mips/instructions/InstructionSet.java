@@ -1134,57 +1134,56 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    }
                 }));
          instructionList.add(
-                new BasicInstruction("lb X1,-100(X2)",
-                "Load byte : Set X1 to sign-extended 8-bit value from effective memory byte address",
-            	 BasicInstructionFormat.I_FORMAT,
-                "100000 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        RegisterFile.updateRegister(operands[0],
-                            Globals.memory.getByte(
-                            RegisterFile.getValue(operands[2])
-                                    + (operands[1] << 16 >> 16))
-                                            << 24
-                                            >> 24);
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
+                 new BasicInstruction("LDURB X1,[X2,-100]",
+        		 "Load byte unsigned : Set X1 to zero-extended 8-bit value from effective memory byte address",
+        		 BasicInstructionFormat.I_FORMAT,
+        		 "100100 ttttt fffff ssssssssssssssss",
+        		 new SimulationCode()
+        		{
+        		    public void simulate(ProgramStatement statement) throws ProcessingException
+        		   {
+        		      int[] operands = statement.getOperands();
+        		      try
+        		      {
+        		         RegisterFile.updateRegister(operands[0],
+        		             Globals.memory.getByte(
+        		             RegisterFile.getValue(operands[1])
+        		                     + (operands[2] << 16 >> 16))
+        		                             & 0x000000ff);
+        		      } 
+        		          catch (AddressErrorException e)
+        		         {
+        		            throw new ProcessingException(statement, e);
+        		         }
+        		   }
+        		}));
          instructionList.add(
-                new BasicInstruction("lh X1,-100(X2)",
-                "Load halfword : Set X1 to sign-extended 16-bit value from effective memory halfword address",
-            	 BasicInstructionFormat.I_FORMAT,
-                "100001 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        RegisterFile.updateRegister(operands[0],
-                            Globals.memory.getHalf(
-                            RegisterFile.getValue(operands[2])
-                                    + (operands[1] << 16 >> 16))
-                                            << 16
-                                            >> 16);
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
+                 new BasicInstruction("LDURH X1,[X2,-100]",
+        	     "Load halfword unsigned : Set X1 to zero-extended 16-bit value from effective memory halfword address",
+        	   	 BasicInstructionFormat.I_FORMAT,
+        	     "100101 ttttt fffff ssssssssssssssss",
+        	     new SimulationCode()
+        	    {
+        	        public void simulate(ProgramStatement statement) throws ProcessingException
+        	       {
+        	          int[] operands = statement.getOperands();
+        	          try
+        	          {
+        	          // offset is sign-extended and loaded halfword value is zero-extended
+        	             RegisterFile.updateRegister(operands[0],
+        	                 Globals.memory.getHalf(
+        	                 RegisterFile.getValue(operands[1])
+        	                         + (operands[2] << 16 >> 16))
+        	                                 & 0x0000ffff);
+        	          } 
+        	              catch (AddressErrorException e)
+        	             {
+        	                throw new ProcessingException(statement, e);
+        	             }
+        	       }
+        	    }));
          instructionList.add(
-                new BasicInstruction("sb X1,-100(X2)",
+                 new BasicInstruction("STURB X1,[X2,-100]",
                 "Store byte : Store the low-order 8 bits of X1 into the effective memory byte address",
             	 BasicInstructionFormat.I_FORMAT,
                 "101000 ttttt fffff ssssssssssssssss",
@@ -1196,8 +1195,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      try
                      {
                         Globals.memory.setByte(
-                            RegisterFile.getValue(operands[2])
-                                    + (operands[1] << 16 >> 16),
+                            RegisterFile.getValue(operands[1])
+                                    + (operands[2] << 16 >> 16),
                                     RegisterFile.getValue(operands[0])
                                             & 0x000000ff);
                      } 
@@ -1208,7 +1207,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sh X1,-100(X2)",
+                 new BasicInstruction("STURH X1,[X2,-100]",
                 "Store halfword : Store the low-order 16 bits of X1 into the effective memory halfword address",
             	 BasicInstructionFormat.I_FORMAT,
                 "101001 ttttt fffff ssssssssssssssss",
@@ -1220,8 +1219,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      try
                      {
                         Globals.memory.setHalf(
-                            RegisterFile.getValue(operands[2])
-                                    + (operands[1] << 16 >> 16),
+                            RegisterFile.getValue(operands[1])
+                                    + (operands[2] << 16 >> 16),
                                     RegisterFile.getValue(operands[0])
                                             & 0x0000ffff);
                      } 
