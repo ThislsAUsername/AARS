@@ -668,56 +668,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("lwl X1,-100(X2)",
-                "Load word left : Load from 1 to 4 bytes left-justified into X1, starting with effective memory byte address and continuing through the low-order byte of its word",
-            	 BasicInstructionFormat.I_FORMAT,
-                "100010 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        int address = RegisterFile.getValue(operands[2]) + operands[1];
-                        int result = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=address % Memory.WORD_LENGTH_BYTES; i++) {
-                           result = Binary.setByte(result,3-i,Globals.memory.getByte(address-i));
-                        }
-                        RegisterFile.updateRegister(operands[0], result);
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("lwr X1,-100(X2)",
-                "Load word right : Load from 1 to 4 bytes right-justified into X1, starting with effective memory byte address and continuing through the high-order byte of its word",
-            	 BasicInstructionFormat.I_FORMAT,
-                "100110 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        int address = RegisterFile.getValue(operands[2]) + operands[1];
-                        int result = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=3-(address % Memory.WORD_LENGTH_BYTES); i++) {
-                           result = Binary.setByte(result,i,Globals.memory.getByte(address+i));
-                        }
-                        RegisterFile.updateRegister(operands[0], result);
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
-         instructionList.add(
                 new BasicInstruction("sw X1,-100(X2)",
                 "Store word : Store contents of X1 into effective memory word address",
             	 BasicInstructionFormat.I_FORMAT,
@@ -762,54 +712,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                            throw new ProcessingException(statement, e);
                         }
                      RegisterFile.updateRegister(operands[0],1); // always succeeds
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("swl X1,-100(X2)",
-                "Store word left : Store high-order 1 to 4 bytes of X1 into memory, starting with effective byte address and continuing through the low-order byte of its word",
-            	 BasicInstructionFormat.I_FORMAT,
-                "101010 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        int address = RegisterFile.getValue(operands[2]) + operands[1];
-                        int source = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=address % Memory.WORD_LENGTH_BYTES; i++) {
-                           Globals.memory.setByte(address-i,Binary.getByte(source,3-i));
-                        }
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("swr X1,-100(X2)",
-                "Store word right : Store low-order 1 to 4 bytes of X1 into memory, starting with high-order byte of word containing effective byte address and continuing through that byte address",
-            	 BasicInstructionFormat.I_FORMAT,
-                "101110 ttttt fffff ssssssssssssssss",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     try
-                     {
-                        int address = RegisterFile.getValue(operands[2]) + operands[1];
-                        int source = RegisterFile.getValue(operands[0]);
-                        for (int i=0; i<=3-(address % Memory.WORD_LENGTH_BYTES); i++) {
-                           Globals.memory.setByte(address+i,Binary.getByte(source,i));
-                        }
-                     } 
-                         catch (AddressErrorException e)
-                        {
-                           throw new ProcessingException(statement, e);
-                        }
                   }
                }));
          instructionList.add(
