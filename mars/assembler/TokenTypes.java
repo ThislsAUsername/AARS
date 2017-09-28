@@ -111,8 +111,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			   return TokenTypes.ERROR;
 				
        // See if it is a comment
-         if (value.charAt(0) == '#')
-            return TokenTypes.COMMENT;
+         if (value.charAt(0) == '/')
+        	if (value.charAt(1) == '/')
+	           return TokenTypes.COMMENT;
+	        else
+			   return TokenTypes.ERROR;
            
        // See if it is one of the simple tokens 
          if (value.length() == 1) {
