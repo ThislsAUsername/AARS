@@ -1108,8 +1108,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     }
                  }));
           instructionList.add(
-                  new BasicInstruction("lui X1,label",
-                  "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
+                  new BasicInstruction("MOVL X1,label",
+                  "Move wide label: Convenience instruction that sets X1 to the value of the label",
               	 BasicInstructionFormat.I_FORMAT,
                   "001111 00000 fffff ssssssssssssssss",
                   new SimulationCode()
@@ -1121,18 +1121,75 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     }
                  }));
           instructionList.add(
-                 new BasicInstruction("lui X1,100",
-                 "Load upper immediate : Set high-order 16 bits of X1 to 16-bit immediate and low-order 16 bits to 0",
+                 new BasicInstruction("MOVZ X1,100,LSL 0",
+                 "Move wide with zero: Set 16 bits of X1 to 16-bit immediate and zero the rest. Placement is determined by LSL; valid inputs 0-3. Currently ignores the MSB of LSL.",
              	 BasicInstructionFormat.I_FORMAT,
-                 "001111 00000 fffff ssssssssssssssss",
+                 "001111 ttttt fffff ssssssssssssssss",
                  new SimulationCode()
                 {
                     public void simulate(ProgramStatement statement) throws ProcessingException
                    {
                       int[] operands = statement.getOperands();
-                      RegisterFile.updateRegister(operands[0], operands[1] << 16);
+                      // TODO: this will need adjustment for 64bit
+                      int imm16 = operands[1] << 16 >> 16;
+                      int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
+                      RegisterFile.updateRegister(operands[0], imm16 << lsl);
                    }
                 }));
+          instructionList.add(
+                  new BasicInstruction("MOVK X1,100,LSL 0",
+                  "Move wide with keep: Set 16 bits of X1 to 16-bit immediate and keep the rest. Placement is determined by LSL; valid inputs 0-3. Currently ignores the MSB of LSL.",
+              	 BasicInstructionFormat.I_FORMAT,
+                  "001111 ttttt fffff ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       // TODO: this will need adjustment for 64bit
+                       int imm16 = operands[1] << 16 >> 16;
+                       int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
+                       int mask = Integer.MAX_VALUE ^ (Short.MAX_VALUE << lsl);
+                       int keptBits = RegisterFile.getValue(operands[0]) & mask;
+                       int result = keptBits | (imm16 << lsl);
+                       RegisterFile.updateRegister(operands[0], result);
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("MOVZ X1,100,0",
+                  "Move wide with zero: Set 16 bits of X1 to 16-bit immediate and zero the rest. Placement is determined by LSL; valid inputs 0-3. Currently ignores the MSB of LSL.",
+              	 BasicInstructionFormat.I_FORMAT,
+                  "001111 ttttt fffff ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       // TODO: this will need adjustment for 64bit
+                       int imm16 = operands[1] << 16 >> 16;
+                       int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
+                       RegisterFile.updateRegister(operands[0], imm16 << lsl);
+                    }
+                 }));
+           instructionList.add(
+                   new BasicInstruction("MOVK X1,100,0",
+                   "Move wide with keep: Set 16 bits of X1 to 16-bit immediate and keep the rest. Placement is determined by LSL; valid inputs 0-3. Currently ignores the MSB of LSL.",
+               	 BasicInstructionFormat.I_FORMAT,
+                   "001111 ttttt fffff ssssssssssssssss",
+                   new SimulationCode()
+                  {
+                      public void simulate(ProgramStatement statement) throws ProcessingException
+                     {
+                        int[] operands = statement.getOperands();
+                        // TODO: this will need adjustment for 64bit
+                        int imm16 = operands[1] << 16 >> 16;
+                        int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
+                        int mask = Integer.MAX_VALUE ^ (Short.MAX_VALUE << lsl);
+                        int keptBits = RegisterFile.getValue(operands[0]) & mask;
+                        int result = keptBits | (imm16 << lsl);
+                        RegisterFile.updateRegister(operands[0], result);
+                     }
+                  }));
          instructionList.add(
                  new BasicInstruction("LDURB X1,[X2,-100]",
         		 "Load byte unsigned : Set X1 to zero-extended 8-bit value from effective memory byte address",
