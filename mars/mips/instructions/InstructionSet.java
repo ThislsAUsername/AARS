@@ -1009,8 +1009,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
           instructionList.add(
-                 new BasicInstruction("ll X1,-100(X2)",
-                 "Load linked : Paired with Store Conditional (sc) to perform atomic read-modify-write.  Treated as equivalent to Load Word (lw) because MARS does not simulate multiple processors.",
+                 new BasicInstruction("LDXR X1,[X2,-100]",
+                 "Load Exclusive Register: Paired with Store Exclusive Register (STXR) to perform atomic read-modify-write.  Treated as equivalent to Load Register (LDUR) because AARS does not simulate multiple processors.",
              	 BasicInstructionFormat.I_FORMAT,
                  "110000 ttttt fffff ssssssssssssssss",
              	 // The ll (load link) command is supposed to be the front end of an atomic
@@ -1030,7 +1030,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       {
                          RegisterFile.updateRegister(operands[0],
                              Globals.memory.getWord(
-                             RegisterFile.getValue(operands[2]) + operands[1]));
+                             RegisterFile.getValue(operands[1]) + operands[2]));
                       } 
                           catch (AddressErrorException e)
                          {
@@ -1039,8 +1039,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    }
                 }));
           instructionList.add(
-                 new BasicInstruction("sc X1,-100(X2)",
-                 "Store conditional : Paired with Load Linked (ll) to perform atomic read-modify-write.  Stores X1 value into effective address, then sets X1 to 1 for success.  Always succeeds because MARS does not simulate multiple processors.",
+                 new BasicInstruction("STXR X1,X3,[X2]",
+                 "Store Exclusive Register: Paired with Load Exclusive Register (LDXR) to perform atomic read-modify-write.  Stores X1 value into the address in X2, then sets X3 to 0 for success.  Always succeeds because AARS does not simulate multiple processors.",
              	 BasicInstructionFormat.I_FORMAT,
                  "111000 ttttt fffff ssssssssssssssss",
              	 // See comments with "ll" instruction above.  "sc" is implemented
@@ -1053,14 +1053,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       try
                       {
                          Globals.memory.setWord(
-                             RegisterFile.getValue(operands[2]) + operands[1],
+                             RegisterFile.getValue(operands[2]),
                              RegisterFile.getValue(operands[0]));
                       } 
                           catch (AddressErrorException e)
                          {
                             throw new ProcessingException(statement, e);
                          }
-                      RegisterFile.updateRegister(operands[0],1); // always succeeds
+                      RegisterFile.updateRegister(operands[1],0); // always succeeds
                    }
                 }));
           instructionList.add(
@@ -1108,8 +1108,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     }
                  }));
           instructionList.add(
-                  new BasicInstruction("MOVL X1,label",
-                  "Move wide label: Convenience instruction that sets X1 to the value of the label",
+                  new BasicInstruction("LDA X1,label",
+                  "Load Address: Convenience instruction that sets X1 to the value of the label",
               	 BasicInstructionFormat.I_FORMAT,
                   "001111 00000 fffff ssssssssssssssss",
                   new SimulationCode()
