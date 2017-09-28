@@ -996,16 +996,16 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     }
                  }));
          instructionList.add(
-                new BasicInstruction("syscall", 
-            	 "Issue a system call : Execute the system call specified by value in X0",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 00000 00000 00000 00000 001100",
+                new BasicInstruction("SVC 0", 
+            	 "Issue a system call : Execute the system call specified by value in X8",
+              	 BasicInstructionFormat.J_FORMAT,
+                 "001100 ffffffffffffffffffffffffff",
                 new SimulationCode()
                {
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   {
-                	 // Note: X18 is the platform-dependant code register, so that's what we're using for the moment.
-                     findAndSimulateSyscall(RegisterFile.getValue(18),statement);
+                	 // We're using X8 because that's what is specified online, so far as I'm aware.
+                     findAndSimulateSyscall(RegisterFile.getValue(8),statement);
                   }
                }));
           instructionList.add(
