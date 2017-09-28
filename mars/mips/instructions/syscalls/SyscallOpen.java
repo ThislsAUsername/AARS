@@ -72,7 +72,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           // Returns in $v0: a "file descriptor" in the range 0 to SystemIO.SYSCALL_MAXFILES-1,
           // or -1 if error
          String filename = new String(); // = "";
-         int byteAddress = RegisterFile.getValue(4);
+         int byteAddress = RegisterFile.getValue(arg1);
          char ch[] = { ' '}; // Need an array to convert to String
          try
          {
@@ -90,7 +90,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                throw new ProcessingException(statement, e);
             }
          int retValue = SystemIO.openFile(filename,
-                                 RegisterFile.getValue(5));
+                                 RegisterFile.getValue(arg2));
          RegisterFile.updateRegister(2, retValue); // set returned fd value in register
 			
 			// GETTING RID OF PROCESSING EXCEPTION.  IT IS THE RESPONSIBILITY OF THE

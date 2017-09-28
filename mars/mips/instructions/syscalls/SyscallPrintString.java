@@ -49,7 +49,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * Performs syscall function to print string stored starting at address in $a0.
    */
        public void simulate(ProgramStatement statement) throws ProcessingException {
-         int byteAddress = RegisterFile.getValue(4);
+         int byteAddress = RegisterFile.getValue(arg1);
          char ch = 0;
          try
          {

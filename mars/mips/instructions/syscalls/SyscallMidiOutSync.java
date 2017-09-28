@@ -80,10 +80,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * use the range 1-128.
    */
        public void simulate(ProgramStatement statement) throws ProcessingException {
-         int pitch      = RegisterFile.getValue(4); // $a0
-         int duration   = RegisterFile.getValue(5); // $a1
-         int instrument = RegisterFile.getValue(6); // $a2
-         int volume     = RegisterFile.getValue(7); // $a3
+         int pitch      = RegisterFile.getValue(arg1); // $a0
+         int duration   = RegisterFile.getValue(arg2); // $a1
+         int instrument = RegisterFile.getValue(arg3); // $a2
+         int volume     = RegisterFile.getValue(arg4); // $a3
          if (pitch < rangeLowEnd || pitch > rangeHighEnd) pitch = ToneGenerator.DEFAULT_PITCH;
          if (duration < 0) duration = ToneGenerator.DEFAULT_DURATION;
          if (instrument < rangeLowEnd || instrument > rangeHighEnd) instrument = ToneGenerator.DEFAULT_INSTRUMENT;

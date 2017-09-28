@@ -56,6 +56,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       public static final TokenTypes IDENTIFIER    = new TokenTypes("IDENTIFIER");
       public static final TokenTypes LEFT_PAREN    = new TokenTypes("LEFT_PAREN");
       public static final TokenTypes RIGHT_PAREN   = new TokenTypes("RIGHT_PAREN");
+      public static final TokenTypes LEFT_BRACKET    = new TokenTypes("LEFT_BRACKET");
+      public static final TokenTypes RIGHT_BRACKET   = new TokenTypes("RIGHT_BRACKET");
    //public static final TokenTypes INTEGER       = new TokenTypes("INTEGER");
       public static final TokenTypes INTEGER_5     = new TokenTypes("INTEGER_5");
       public static final TokenTypes INTEGER_16    = new TokenTypes("INTEGER_16");
@@ -109,16 +111,23 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			   return TokenTypes.ERROR;
 				
        // See if it is a comment
-         if (value.charAt(0) == '#')
-            return TokenTypes.COMMENT;
+         if (value.charAt(0) == '/')
+        	if (value.charAt(1) == '/')
+	           return TokenTypes.COMMENT;
+	        else
+			   return TokenTypes.ERROR;
            
        // See if it is one of the simple tokens 
          if (value.length() == 1) {
             switch (value.charAt(0)) {
-               case '(' : 
-                  return TokenTypes.LEFT_PAREN;
-               case ')' : 
-                  return TokenTypes.RIGHT_PAREN;
+	           case '(' : 
+	              return TokenTypes.LEFT_PAREN;
+	           case ')' : 
+	              return TokenTypes.RIGHT_PAREN;
+	           case '[' : 
+	              return TokenTypes.LEFT_BRACKET;
+	           case ']' : 
+	              return TokenTypes.RIGHT_BRACKET;
                case ':' : 
                   return TokenTypes.COLON;
                case '+' : 
@@ -141,6 +150,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                return TokenTypes.REGISTER_NUMBER;
       
        // See if it is a floating point register
+         //TODO: see if this is still needed/relevant
        
          reg = Coprocessor1.getRegister(value);
          if (reg != null)

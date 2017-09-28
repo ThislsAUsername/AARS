@@ -52,6 +52,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    */
        public void simulate(ProgramStatement statement) throws ProcessingException {
          SystemIO.printString(
-                    Binary.unsignedIntToIntString(RegisterFile.getValue(4)));
+                    Binary.unsignedIntToIntString(RegisterFile.getValue(arg1)));
       }
    }

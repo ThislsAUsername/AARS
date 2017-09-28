@@ -303,7 +303,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             } 
             else { // not inside a quoted string, so be sensitive to delimiters
                switch(c) {
-                  case '#' :  // # denotes comment that takes remainder of line
+                  case '/' :  // # denotes comment that takes remainder of line
                      if (tokenPos > 0) {
                         this.processCandidateToken(token, program, lineNum, theLine, tokenPos, tokenStartPos, result);
                         tokenPos = 0;
@@ -315,9 +315,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      linePos = line.length;
                      tokenPos = 0;
                      break;
+                  case '#' :
                   case ' ' :
                   case '\t':
-                  case ',' : // space, tab or comma is delimiter
+                  case ',' : // space, tab or comma is delimiter; pound is required to be allowed before numbers but has no real significance
                      if (tokenPos > 0) {
                         this.processCandidateToken(token, program, lineNum, theLine, tokenPos, tokenStartPos, result);
                         tokenPos = 0;
@@ -351,7 +352,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      }
                      break; 
                   // these are other single-character tokens
-                  case ':' : 
+                  case ':' :
+                  case '[' :
+                  case ']' :
                   case '(' :
                   case ')' :
                      if (tokenPos > 0) {

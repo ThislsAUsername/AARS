@@ -153,17 +153,21 @@
                            lastOffset = lastKeyword = i1;
                         }
                         break;
-                     case '#':
-                        backslash = false;
-                        doKeyword(line,i,c);
-                        if(length - i >= 1)
-                        {
-                           addToken(i - lastOffset,token);
-                           addToken(length - i,Token.COMMENT1);
-                           lastOffset = lastKeyword = length;
-                           break loop;
-                        }
-                        break;
+                     case '/':
+                    	// a little hacky, but we only wanna highlight comments after two /'s
+                    	if('/'==array[i+1])
+                    	{
+	                        backslash = false;
+	                        doKeyword(line,i,c);
+	                        if(length - i >= 1)
+	                        {
+	                           addToken(i - lastOffset,token);
+	                           addToken(length - i,Token.COMMENT1);
+	                           lastOffset = lastKeyword = length;
+	                           break loop;
+	                        }
+	                        break;
+                    	}
                      default:
                         backslash = false;
 								// . and $ added 4/6/10 DPS; % added 12/12 M.Sekhavat
