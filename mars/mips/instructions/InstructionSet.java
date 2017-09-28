@@ -1697,9 +1697,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         Coprocessor1.clearConditionFlag(operands[0]);
                   }
                }));
-      			
-        ////////////// READ PSEUDO-INSTRUCTION SPECS FROM DATA FILE AND ADD //////////////////////
-        // addPseudoInstructions();
       	
         ////////////// GET AND CREATE LIST OF SYSCALL FUNCTION OBJECTS ////////////////////
          syscallLoader = new SyscallLoader();
@@ -1744,80 +1741,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		return null;
 	}
    	
-    /*  METHOD TO ADD PSEUDO-INSTRUCTIONS
-    */
-   
-       private void addPseudoInstructions()
-      {
-         InputStream is = null;
-         BufferedReader in = null;
-         try
-         {
-            // leading "/" prevents package name being prepended to filepath.
-            is = this.getClass().getResourceAsStream("/PseudoOps.txt");
-            in = new BufferedReader(new InputStreamReader(is));
-         } 
-             catch (NullPointerException e)
-            {
-               System.out.println(
-                    "Error: MIPS pseudo-instruction file PseudoOps.txt not found.");
-               System.exit(0);
-            }
-         try
-         {
-            String line, pseudoOp, template, firstTemplate, token;
-            String description;
-            StringTokenizer tokenizer;
-            while ((line = in.readLine()) != null) {
-                // skip over: comment lines, empty lines, lines starting with blank.
-               if (!line.startsWith("#") && !line.startsWith(" ")
-                        && line.length() > 0)  {  
-                  description = "";
-                  tokenizer = new StringTokenizer(line, "\t");
-                  pseudoOp = tokenizer.nextToken();
-                  template = "";
-                  firstTemplate = null;
-                  while (tokenizer.hasMoreTokens()) {
-                     token = tokenizer.nextToken();
-                     if (token.startsWith("#")) {  
-                        // Optional description must be last token in the line.
-                        description = token.substring(1);
-                        break;
-                     }
-                     if (token.startsWith("COMPACT")) {
-                        // has second template for Compact (16-bit) memory config -- added DPS 3 Aug 2009
-                        firstTemplate = template;
-                        template = "";
-                        continue;
-                     } 
-                     template = template + token;
-                     if (tokenizer.hasMoreTokens()) {
-                        template = template + "\n";
-                     }
-                  }
-                  ExtendedInstruction inst = (firstTemplate == null)
-                         ? new ExtendedInstruction(pseudoOp, template, description)
-                     	 : new ExtendedInstruction(pseudoOp, firstTemplate, template, description);
-                  instructionList.add(inst);
-               	//if (firstTemplate != null) System.out.println("\npseudoOp: "+pseudoOp+"\ndefault template:\n"+firstTemplate+"\ncompact template:\n"+template);
-               }
-            }
-            in.close();
-         } 
-             catch (IOException ioe)
-            {
-               System.out.println(
-                    "Internal Error: MIPS pseudo-instructions could not be loaded.");
-               System.exit(0);
-            } 
-             catch (Exception ioe)
-            {
-               System.out.println(
-                    "Error: Invalid MIPS pseudo-instruction specification.");
-               System.exit(0);
-            }
-      
-      }
    	
     /**
      *  Given an operator mnemonic, will return the corresponding Instruction object(s)
