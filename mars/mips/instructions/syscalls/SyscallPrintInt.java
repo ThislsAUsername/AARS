@@ -51,6 +51,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    */
        public void simulate(ProgramStatement statement) throws ProcessingException {
          SystemIO.printString(
-             new Integer(RegisterFile.getValue(4)).toString());
+             new Integer(RegisterFile.getValue(arg1)).toString());
       }
    }

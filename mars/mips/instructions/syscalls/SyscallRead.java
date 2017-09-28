@@ -54,15 +54,15 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * and $a2 specifies length.  Number of characters read is returned in $v0 (starting MARS 3.7). 
    */
        public void simulate(ProgramStatement statement) throws ProcessingException {
-         int byteAddress = RegisterFile.getValue(5); // destination of characters read from file
+         int byteAddress = RegisterFile.getValue(arg2); // destination of characters read from file
          byte b = 0;
          int index = 0;
-         byte myBuffer[] = new byte[RegisterFile.getValue(6)]; // specified length
+         byte myBuffer[] = new byte[RegisterFile.getValue(arg3)]; // specified length
          // Call to SystemIO.xxxx.read(xxx,xxx,xxx)  returns actual length
          int retLength = SystemIO.readFromFile(
-                                 RegisterFile.getValue(4), // fd
+                                 RegisterFile.getValue(arg1), // fd
                                  myBuffer, // buffer
-                                 RegisterFile.getValue(6)); // length
+                                 RegisterFile.getValue(arg3)); // length
          RegisterFile.updateRegister(2, retLength); // set returned value in register
 
          // Getting rid of processing exception.  It is the responsibility of the

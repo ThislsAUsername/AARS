@@ -53,7 +53,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
        public void simulate(ProgramStatement statement) throws ProcessingException {
          int address = 0;
          try {
-            address = Globals.memory.allocateBytesFromHeap(RegisterFile.getValue(4));
+            address = Globals.memory.allocateBytesFromHeap(RegisterFile.getValue(arg1));
          } 
              catch (IllegalArgumentException iae) {
                throw new ProcessingException(statement,

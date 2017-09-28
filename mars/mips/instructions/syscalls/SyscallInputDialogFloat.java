@@ -61,7 +61,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
          String message = new String(); // = "";
-         int byteAddress = RegisterFile.getValue(4);
+         int byteAddress = RegisterFile.getValue(arg1);
          char ch[] = { ' '}; // Need an array to convert to String
          try
          {

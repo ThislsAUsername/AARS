@@ -45,6 +45,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     public abstract class AbstractSyscall implements Syscall {
       private int serviceNumber;
       private String serviceName;
+	  protected static final int arg1 = 7;
+	  protected static final int arg2 = 6;
+	  protected static final int arg3 = 5;
+	  protected static final int arg4 = 4;
    	 
    /**
     * Constructor is provided so subclass may initialize instance variables.

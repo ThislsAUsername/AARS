@@ -63,7 +63,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       
       
          String message = new String(); // = "";
-         int byteAddress = RegisterFile.getValue(4); // byteAddress of string is in $a0
+         int byteAddress = RegisterFile.getValue(arg1); // byteAddress of string is in $a0
          char ch[] = { ' '}; // Need an array to convert to String
          try
          {
@@ -86,8 +86,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             // means that OK was chosen but no string was input.
          String inputString = null;
          inputString = JOptionPane.showInputDialog(message);
-         byteAddress = RegisterFile.getValue(5); // byteAddress of string is in $a1
-         int maxLength = RegisterFile.getValue(6); // input buffer size for input string is in $a2
+         byteAddress = RegisterFile.getValue(arg2); // byteAddress of string is in $a1
+         int maxLength = RegisterFile.getValue(arg3); // input buffer size for input string is in $a2
       
          try
          {

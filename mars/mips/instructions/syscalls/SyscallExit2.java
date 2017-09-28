@@ -53,7 +53,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    */
        public void simulate(ProgramStatement statement) throws ProcessingException {
          if (Globals.getGui()==null) {
-            Globals.exitCode = RegisterFile.getValue(4);
+            Globals.exitCode = RegisterFile.getValue(arg1);
          }
          throw new ProcessingException(); // empty error list
       }

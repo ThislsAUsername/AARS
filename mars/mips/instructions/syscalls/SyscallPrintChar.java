@@ -52,7 +52,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
        public void simulate(ProgramStatement statement) throws ProcessingException {
          // mask off the lower byte of register $a0.
          // Convert to a one-character string and use the string technique.
-         char t = (char) (RegisterFile.getValue(4) & 0x000000ff);
+         char t = (char) (RegisterFile.getValue(arg1) & 0x000000ff);
          SystemIO.printString(new Character(t).toString());
       }
    

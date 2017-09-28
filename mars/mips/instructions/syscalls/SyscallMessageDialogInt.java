@@ -56,7 +56,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           // Output: none
 
          String message = new String(); // = "";
-         int byteAddress = RegisterFile.getValue(4);
+         int byteAddress = RegisterFile.getValue(arg1);
          char ch[] = { ' '}; // Need an array to convert to String
          try
          {
@@ -76,7 +76,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             // Display the dialog.
             JOptionPane.showMessageDialog(null,
-                  message + Integer.toString(RegisterFile.getValue(5)),
+                  message + Integer.toString(RegisterFile.getValue(arg2)),
                   null,
                   JOptionPane.INFORMATION_MESSAGE );
             
