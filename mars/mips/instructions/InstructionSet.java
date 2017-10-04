@@ -403,62 +403,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mfhi X1", 
-            	 "Move from HI register : Set X1 to contents of HI (see multiply and divide operations)",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 00000 00000 fffff 00000 010000",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(33));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("mflo X1", 
-            	 "Move from LO register : Set X1 to contents of LO (see multiply and divide operations)",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 00000 00000 fffff 00000 010010",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(operands[0],
-                        RegisterFile.getValue(34));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("mthi X1", 
-            	 "Move to HI registerr : Set HI to contents of X1 (see multiply and divide operations)",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 fffff 00000 00000 00000 010001",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(33,
-                        RegisterFile.getValue(operands[0]));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("mtlo X1", 
-            	 "Move to LO register : Set LO to contents of X1 (see multiply and divide operations)",
-            	 BasicInstructionFormat.R_FORMAT,
-                "000000 fffff 00000 00000 00000 010011",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     RegisterFile.updateRegister(34,
-                        RegisterFile.getValue(operands[0]));
-                  }
-               }));
-         instructionList.add(
                 new BasicInstruction("AND X1,X2,X3",
             	 "Bitwise AND : Set X1 to bitwise AND of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
