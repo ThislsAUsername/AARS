@@ -343,16 +343,16 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    }
                 }));
          instructionList.add(
-                new BasicInstruction("div X1,X2",
-            	 "Division with overflow : Divide X1 by X2 then set LO to quotient and HI to remainder (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("SDIV X1,X2,X3",
+            	 "Division: Divide X2 by X3 then set X1 to quotient",
                 BasicInstructionFormat.R_FORMAT,
-                "000000 fffff sssss 00000 00000 011010",
+                "011100 sssss ttttt fffff 00000 000010",
                 new SimulationCode()
                {
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   {
                      int[] operands = statement.getOperands();
-                     if (RegisterFile.getValue(operands[1]) == 0)
+                     if (RegisterFile.getValue(operands[2]) == 0)
                      {
                      // Note: no exceptions and undefined results for zero div
                      // COD3 Appendix A says "with overflow" but MIPS 32 instruction set
@@ -360,36 +360,29 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         return;
                      }
                   
-                  // Register 33 is HIGH and 34 is LOW
-                     RegisterFile.updateRegister(33,
-                        RegisterFile.getValue(operands[0])
-                        % RegisterFile.getValue(operands[1]));
-                     RegisterFile.updateRegister(34,
-                        RegisterFile.getValue(operands[0])
-                        / RegisterFile.getValue(operands[1]));
+                     RegisterFile.updateRegister(operands[0],
+                        RegisterFile.getValue(operands[1])
+                        / RegisterFile.getValue(operands[2]));
                   }
                }));
          instructionList.add(
-                new BasicInstruction("divu X1,X2",
-            	 "Division unsigned without overflow : Divide unsigned X1 by X2 then set LO to quotient and HI to remainder (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("UDIV X1,X2,X3",
+            	 "Division unsigned: Divide unsigned X2 by X3 then set X1 to quotient",
                 BasicInstructionFormat.R_FORMAT,
-                "000000 fffff sssss 00000 00000 011011",
+                "011100 sssss ttttt fffff 00000 000010",
                 new SimulationCode()
                {
                    public void simulate(ProgramStatement statement) throws ProcessingException
                   {
                      int[] operands = statement.getOperands();
-                     if (RegisterFile.getValue(operands[1]) == 0)
+                     if (RegisterFile.getValue(operands[2]) == 0)
                      {
                      // Note: no exceptions, and undefined results for zero divide
                         return;
                      }
-                     long oper1 = ((long)RegisterFile.getValue(operands[0])) << 32 >>> 32; 
-                     long oper2 = ((long)RegisterFile.getValue(operands[1])) << 32 >>> 32; 
-                  // Register 33 is HIGH and 34 is LOW
-                     RegisterFile.updateRegister(33,
-                        (int) (((oper1 % oper2) << 32) >> 32));
-                     RegisterFile.updateRegister(34,
+                     long oper1 = ((long)RegisterFile.getValue(operands[1])) << 32 >>> 32; 
+                     long oper2 = ((long)RegisterFile.getValue(operands[2])) << 32 >>> 32; 
+                     RegisterFile.updateRegister(operands[0],
                         (int) (((oper1 / oper2) << 32) >> 32));                  
                   }
                }));
