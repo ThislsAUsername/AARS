@@ -299,42 +299,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    }
                 }));
          instructionList.add(
-                new BasicInstruction("mult X1,X2",
-            	 "Multiplication : Set hi to high-order 32 bits, lo to low-order 32 bits of the product of X1 and X2 (use mfhi to access hi, mflo to access lo)",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 fffff sssss 00000 00000 011000",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     long product = (long) RegisterFile.getValue(operands[0])
-                        * (long) RegisterFile.getValue(operands[1]);
-                  // Register 33 is HIGH and 34 is LOW
-                     RegisterFile.updateRegister(33, (int) (product >> 32));
-                     RegisterFile.updateRegister(34, (int) ((product << 32) >> 32));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("multu X1,X2",
-            	 "Multiplication unsigned : Set HI to high-order 32 bits, LO to low-order 32 bits of the product of unsigned X1 and X2 (use mfhi to access HI, mflo to access LO)",
-                BasicInstructionFormat.R_FORMAT,
-                "000000 fffff sssss 00000 00000 011001",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     long product = (((long) RegisterFile.getValue(operands[0]))<<32>>>32)
-                        * (((long) RegisterFile.getValue(operands[1]))<<32>>>32);
-                  // Register 33 is HIGH and 34 is LOW
-                     RegisterFile.updateRegister(33, (int) (product >> 32));
-                     RegisterFile.updateRegister(34, (int) ((product << 32) >> 32));
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("mul X1,X2,X3",
-            	 "Multiplication without overflow  : Set HI to high-order 32 bits, LO and X1 to low-order 32 bits of the product of X2 and X3 (use mfhi to access HI, mflo to access LO)",
+                new BasicInstruction("MUL X1,X2,X3",
+            	 "Multiplication without overflow: Set X1 to low-order 32 bits of the product of X2 and X3",
                 BasicInstructionFormat.R_FORMAT,
                 "011100 sssss ttttt fffff 00000 000010",
                 new SimulationCode()
@@ -344,13 +310,38 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      int[] operands = statement.getOperands();
                      long product = (long) RegisterFile.getValue(operands[1])
                         * (long) RegisterFile.getValue(operands[2]);
-                     RegisterFile.updateRegister(operands[0],
-                        (int) ((product << 32) >> 32));
-                  // Register 33 is HIGH and 34 is LOW.  Not required by MIPS; SPIM does it.
-                     RegisterFile.updateRegister(33, (int) (product >> 32));
-                     RegisterFile.updateRegister(34, (int) ((product << 32) >> 32));
-                  }
+                     RegisterFile.updateRegister(operands[0], (int) ((product << 32) >> 32));                  }
                }));
+         instructionList.add(
+                 new BasicInstruction("SMULH X1,X2,X3",
+             	 "Signed Multiplication High: Set X1 to high-order 32 bits of the product of X2 and X3",
+                 BasicInstructionFormat.R_FORMAT,
+                 "011100 sssss ttttt fffff 00000 000010",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      long product = (long) RegisterFile.getValue(operands[1])
+                         * (long) RegisterFile.getValue(operands[2]);
+                      RegisterFile.updateRegister(operands[0], (int) (product >> 32));
+                   }
+                }));
+         instructionList.add(
+                 new BasicInstruction("UMULH X1,X2,X3",
+             	 "Unsigned Multiplication High: Set X1 to high-order 32 bits of the product of unsigned X1 and X2",
+                 BasicInstructionFormat.R_FORMAT,
+                 "011100 sssss ttttt fffff 00000 000010",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      long product = (((long) RegisterFile.getValue(operands[1]))<<32>>>32)
+                         * (((long) RegisterFile.getValue(operands[2]))<<32>>>32);
+                      RegisterFile.updateRegister(operands[0], (int) (product >> 32));
+                   }
+                }));
          instructionList.add(
                 new BasicInstruction("div X1,X2",
             	 "Division with overflow : Divide X1 by X2 then set LO to quotient and HI to remainder (use mfhi to access HI, mflo to access LO)",
