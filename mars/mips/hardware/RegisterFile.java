@@ -44,8 +44,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     public  class RegisterFile {
    
       //TODO: figure out what the deal is with these
-      public static final int GLOBAL_POINTER_REGISTER = 28;
-      public static final int STACK_POINTER_REGISTER = 29;
+      public static final int GLOBAL_POINTER_REGISTER = 27;
+      public static final int STACK_POINTER_REGISTER = 28;
 
       private static boolean flagN = false;
       private static boolean flagZ = false;
@@ -71,30 +71,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          	new Register("X29", 29, 0),
          	new Register("X30", 30, 0),new Register("XZR", 31, 0)
            };
-//		Saving for easy comparison TODO: delete
-//      private static Register [] regFile = 
-//          { new Register("$zero", 0, 0), new Register("$at", 1, 0),
-//         	new Register("$v0", 2, 0),new Register("$v1", 3, 0),
-//         	new Register("$a0", 4, 0),new Register("$a1", 5, 0),
-//         	new Register("$a2", 6, 0),new Register("$a3", 7, 0),
-//         	new Register("$t0", 8, 0),new Register("$t1", 9, 0),
-//         	new Register("$t2", 10, 0),new Register("$t3", 11, 0), 
-//         	new Register("$t4", 12, 0),new Register("$t5", 13, 0),
-//         	new Register("$t6", 14, 0),new Register("$t7", 15, 0),
-//         	new Register("$s0", 16, 0),new Register("$s1", 17, 0),
-//         	new Register("$s2", 18, 0),new Register("$s3", 19, 0),
-//         	new Register("$s4", 20, 0),new Register("$s5", 21, 0),
-//         	new Register("$s6", 22, 0),new Register("$s7", 23, 0),
-//         	new Register("$t8", 24, 0),new Register("$t9", 25, 0),
-//         	new Register("$k0", 26, 0),new Register("$k1", 27, 0),
-//         	new Register("$gp", GLOBAL_POINTER_REGISTER, Memory.globalPointer),
-//         	new Register("$sp", STACK_POINTER_REGISTER, Memory.stackPointer),
-//         	new Register("$fp", 30, 0),new Register("$ra", 31, 0)
-//           };
 
       private static Register programCounter= new Register("pc", 32, Memory.textBaseAddress);
-      private static Register hi= new Register("hi", 33, 0);//this is an internal register with arbitrary number
-      private static Register lo= new Register("lo", 34, 0);// this is an internal register with arbitrary number
   
       
 
@@ -201,13 +179,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				}
 			}
 		}
-		if (num == 33) {// updates the hi register
-			old = (Globals.getSettings().getBackSteppingEnabled())
-					? Globals.program.getBackStepper().addRegisterFileRestore(num, hi.setValue(val)) : hi.setValue(val);
-		} else if (num == 34) {// updates the low register
-			old = (Globals.getSettings().getBackSteppingEnabled())
-					? Globals.program.getBackStepper().addRegisterFileRestore(num, lo.setValue(val)) : lo.setValue(val);
-		}
 		return old;
 	}
 
@@ -243,12 +214,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	 **/
 
 	public static int getValue(int num) {
-		if (num == 33) {
-			return hi.getValue();
-		} else if (num == 34) {
-			return lo.getValue();
-		} else
-			return regFile[num].getValue();
+		return regFile[num].getValue();
 
 	}
 
@@ -415,8 +381,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 																			// "programCounter.resetValue()",
 																			// DPS
 																			// 3/3/09
-		hi.resetValue();
-		lo.resetValue();
 	}
 
 	/**
@@ -437,8 +401,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		for (int i = 0; i < regFile.length; i++) {
 			regFile[i].addObserver(observer);
 		}
-		hi.addObserver(observer);
-		lo.addObserver(observer);
 	}
 
 	/**
@@ -450,7 +412,5 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		for (int i = 0; i < regFile.length; i++) {
 			regFile[i].deleteObserver(observer);
 		}
-		hi.deleteObserver(observer);
-		lo.deleteObserver(observer);
 	}
 }
