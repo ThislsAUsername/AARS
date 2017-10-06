@@ -1494,8 +1494,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    }
                 }));
          instructionList.add(
-                new BasicInstruction("c.eq.s X0,X1",
-                "Compare equal single precision : If X0 is equal to X1, set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("FCMPS S0,S1",
+                "Floating point compare single : If ==, flags=0110. If <, flags=1000. If >, flags=0010. If either operand is invalid, flags=0001.",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 sssss fffff 00000 110010",
                 new SimulationCode()
@@ -1505,105 +1505,29 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      int[] operands = statement.getOperands();
                      float op1 = Float.intBitsToFloat(Coprocessor1.getValue(operands[0]));
                      float op2 = Float.intBitsToFloat(Coprocessor1.getValue(operands[1]));
-                     if (op1 == op2) 
-                        Coprocessor1.setConditionFlag(0);
+                     
+                     if (Float.isNaN(op1) || Float.isNaN(op2))
+                     {
+                    	 // flags=0001; not negative, nor zero, no overflow, but carry
+                    	 RegisterFile.setFlags(1, false, true);
+                     }
                      else
-                        Coprocessor1.clearConditionFlag(0);
+                     {
+	                     if (op1 == op2)
+	                    	// flags=0110; not negative, zero, overflow, no carry
+	                    	RegisterFile.setFlags(0, true, false);
+	                     if (op1 < op2)
+	                    	// flags=1000; negative, not zero, no overflow, no carry
+	                    	RegisterFile.setFlags(-1, false, false);
+	                     if (op1 > op2)
+	                    	// flags=0010; not negative, not zero, overflow, no carry
+	                    	RegisterFile.setFlags(1, true, false);
+                     }
                   }
                }));
          instructionList.add(
-                new BasicInstruction("c.eq.s 1,X0,X1",
-                 "Compare equal single precision : If X0 is equal to X1, set Coprocessor 1 condition flag specied by immediate to true else set it to false",
-               BasicInstructionFormat.R_FORMAT,
-                "010001 10000 ttttt sssss fff 00 11 0010",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     float op1 = Float.intBitsToFloat(Coprocessor1.getValue(operands[1]));
-                     float op2 = Float.intBitsToFloat(Coprocessor1.getValue(operands[2]));
-                     if (op1 == op2) 
-                        Coprocessor1.setConditionFlag(operands[0]);
-                     else
-                        Coprocessor1.clearConditionFlag(operands[0]);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.le.s X0,X1",
-            	 "Compare less or equal single precision : If X0 is less than or equal to X1, set Coprocessor 1 condition flag 0 true else set it false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10000 sssss fffff 00000 111110",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     float op1 = Float.intBitsToFloat(Coprocessor1.getValue(operands[0]));
-                     float op2 = Float.intBitsToFloat(Coprocessor1.getValue(operands[1]));
-                     if (op1 <= op2) 
-                        Coprocessor1.setConditionFlag(0);
-                     else
-                        Coprocessor1.clearConditionFlag(0);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.le.s 1,X0,X1",
-            	 "Compare less or equal single precision : If X0 is less than or equal to X1, set Coprocessor 1 condition flag specified by immediate to true else set it to false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10000 ttttt sssss fff 00 111110",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     float op1 = Float.intBitsToFloat(Coprocessor1.getValue(operands[1]));
-                     float op2 = Float.intBitsToFloat(Coprocessor1.getValue(operands[2]));
-                     if (op1 <= op2) 
-                        Coprocessor1.setConditionFlag(operands[0]);
-                     else
-                        Coprocessor1.clearConditionFlag(operands[0]);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.lt.s X0,X1",
-            	 "Compare less than single precision : If X0 is less than X1, set Coprocessor 1 condition flag 0 true else set it false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10000 sssss fffff 00000 111100",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     float op1 = Float.intBitsToFloat(Coprocessor1.getValue(operands[0]));
-                     float op2 = Float.intBitsToFloat(Coprocessor1.getValue(operands[1]));
-                     if (op1 < op2) 
-                        Coprocessor1.setConditionFlag(0);
-                     else
-                        Coprocessor1.clearConditionFlag(0);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.lt.s 1,X0,X1",
-                "Compare less than single precision : If X0 is less than X1, set Coprocessor 1 condition flag specified by immediate to true else set it to false",
-            	 BasicInstructionFormat.R_FORMAT,
-                "010001 10000 ttttt sssss fff 00 111100",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     float op1 = Float.intBitsToFloat(Coprocessor1.getValue(operands[1]));
-                     float op2 = Float.intBitsToFloat(Coprocessor1.getValue(operands[2]));
-                     if (op1 < op2) 
-                        Coprocessor1.setConditionFlag(operands[0]);
-                     else
-                        Coprocessor1.clearConditionFlag(operands[0]);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.eq.d X2,X4",
-            	 "Compare equal double precision : If X2 is equal to X4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
+                new BasicInstruction("FCMPD D0,D1",
+                "Floating point compare double : If ==, flags=0110. If <, flags=1000. If >, flags=0010. If either operand is invalid, flags=0001.",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 sssss fffff 00000 110010",
                 new SimulationCode()
@@ -1612,131 +1536,30 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   { 
                      int[] operands = statement.getOperands();
                      if (operands[0]%2==1 || operands[1]%2==1) {
-                        throw new ProcessingException(statement, "both registers must be even-numbered");
+                        throw new ProcessingException(statement, DOUBLE_SIZE_REGISTER_ERROR);
                      }
                      double op1 = Double.longBitsToDouble(Binary.twoIntsToLong(
                               Coprocessor1.getValue(operands[0]+1),Coprocessor1.getValue(operands[0])));
                      double op2 = Double.longBitsToDouble(Binary.twoIntsToLong(
                               Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
-                     if (op1 == op2) 
-                        Coprocessor1.setConditionFlag(0);
-                     else
-                        Coprocessor1.clearConditionFlag(0);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.eq.d 1,X2,X4",
-            	 "Compare equal double precision : If X2 is equal to X4 (double-precision), set Coprocessor 1 condition flag specified by immediate to true else set it to false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10001 ttttt sssss fff 00 110010",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     if (operands[1]%2==1 || operands[2]%2==1) {
-                        throw new ProcessingException(statement, "both registers must be even-numbered");
+
+                     if (Double.isNaN(op1) || Double.isNaN(op2))
+                     {
+                    	 // flags=0001; not negative, nor zero, no overflow, but carry
+                    	 RegisterFile.setFlags(1, false, true);
                      }
-                     double op1 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
-                     double op2 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[2]+1),Coprocessor1.getValue(operands[2])));
-                     if (op1 == op2) 
-                        Coprocessor1.setConditionFlag(operands[0]);
                      else
-                        Coprocessor1.clearConditionFlag(operands[0]);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.le.d X2,X4",
-            	 "Compare less or equal double precision : If X2 is less than or equal to X4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10001 sssss fffff 00000 111110",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     if (operands[0]%2==1 || operands[1]%2==1) {
-                        throw new ProcessingException(statement, "both registers must be even-numbered");
+                     {
+	                     if (op1 == op2)
+	                    	// flags=0110; not negative, zero, overflow, no carry
+	                    	RegisterFile.setFlags(0, true, false);
+	                     if (op1 < op2)
+	                    	// flags=1000; negative, not zero, no overflow, no carry
+	                    	RegisterFile.setFlags(-1, false, false);
+	                     if (op1 > op2)
+	                    	// flags=0010; not negative, not zero, overflow, no carry
+	                    	RegisterFile.setFlags(1, true, false);
                      }
-                     double op1 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[0]+1),Coprocessor1.getValue(operands[0])));
-                     double op2 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
-                     if (op1 <= op2) 
-                        Coprocessor1.setConditionFlag(0);
-                     else
-                        Coprocessor1.clearConditionFlag(0);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.le.d 1,X2,X4",
-            	 "Compare less or equal double precision : If X2 is less than or equal to X4 (double-precision), set Coprocessor 1 condition flag specfied by immediate true else set it false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10001 ttttt sssss fff 00 111110",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  {
-                     int[] operands = statement.getOperands();
-                     if (operands[1]%2==1 || operands[2]%2==1) {
-                        throw new ProcessingException(statement, "both registers must be even-numbered");
-                     }
-                     double op1 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
-                     double op2 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[2]+1),Coprocessor1.getValue(operands[2])));
-                     if (op1 <= op2) 
-                        Coprocessor1.setConditionFlag(operands[0]);
-                     else
-                        Coprocessor1.clearConditionFlag(operands[0]);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.lt.d X2,X4",
-            	 "Compare less than double precision : If X2 is less than X4 (double-precision), set Coprocessor 1 condition flag 0 true else set it false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10001 sssss fffff 00000 111100",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     if (operands[0]%2==1 || operands[1]%2==1) {
-                        throw new ProcessingException(statement, "both registers must be even-numbered");
-                     }
-                     double op1 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[0]+1),Coprocessor1.getValue(operands[0])));
-                     double op2 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
-                     if (op1 < op2) 
-                        Coprocessor1.setConditionFlag(0);
-                     else
-                        Coprocessor1.clearConditionFlag(0);
-                  }
-               }));
-         instructionList.add(
-                new BasicInstruction("c.lt.d 1,X2,X4",
-            	 "Compare less than double precision : If X2 is less than X4 (double-precision), set Coprocessor 1 condition flag specified by immediate to true else set it to false",
-                BasicInstructionFormat.R_FORMAT,
-                "010001 10001 ttttt sssss fff 00 111100",
-                new SimulationCode()
-               {
-                   public void simulate(ProgramStatement statement) throws ProcessingException
-                  { 
-                     int[] operands = statement.getOperands();
-                     if (operands[1]%2==1 || operands[2]%2==1) {
-                        throw new ProcessingException(statement, "both registers must be even-numbered");
-                     }
-                     double op1 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
-                     double op2 = Double.longBitsToDouble(Binary.twoIntsToLong(
-                              Coprocessor1.getValue(operands[2]+1),Coprocessor1.getValue(operands[2])));
-                     if (op1 < op2) 
-                        Coprocessor1.setConditionFlag(operands[0]);
-                     else
-                        Coprocessor1.clearConditionFlag(operands[0]);
                   }
                }));
       	
