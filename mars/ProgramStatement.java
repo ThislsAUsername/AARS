@@ -195,7 +195,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             } 
             else if (tokenType == TokenTypes.FP_REGISTER_NAME) {
                registerNumber = Coprocessor1.getRegisterNumber(tokenValue);
-               basicStatementElement = "Xf" + registerNumber;
+               basicStatementElement = "S" + registerNumber;
                basic += basicStatementElement;
                basicStatementList.addString(basicStatementElement);
                if (registerNumber < 0) {
@@ -626,7 +626,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   statementList.addString(")");
                }
                else if (tokenType.toString().contains("REGISTER")) {
-                  String marker = (tokenType.toString().contains("FP_REGISTER")) ? "Xf" : "X";
+                  String marker = (tokenType.toString().contains("FP_REGISTER")) ? "S" : "X";
                   statementList.addString(marker+operands[i]);
                   notOperand = false;
                }

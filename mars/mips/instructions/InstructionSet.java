@@ -1218,7 +1218,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       			
         /////////////////////// Floating Point Instructions Start Here ////////////////
          instructionList.add(
-                new BasicInstruction("add.s X0,X1,X3",
+                new BasicInstruction("add.s S0,S1,S3",
                 "Floating point addition single precision : Set X0 to single-precision floating point value of X1 plus X3", 
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000000",
@@ -1240,7 +1240,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub.s X0,X1,X3",
+                new BasicInstruction("sub.s S0,S1,S3",
                 "Floating point subtraction single precision : Set X0 to single-precision floating point value of X1  minus X3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000001",
@@ -1256,7 +1256,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mul.s X0,X1,X3",
+                new BasicInstruction("mul.s S0,S1,S3",
                 "Floating point multiplication single precision : Set X0 to single-precision floating point value of X1 times X3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000010",
@@ -1272,7 +1272,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("div.s X0,X1,X3",
+                new BasicInstruction("div.s S0,S1,S3",
                 "Floating point division single precision : Set X0 to single-precision floating point value of X1 divided by X3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000011",
@@ -1288,7 +1288,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("add.d X2,X4,X6",
+                new BasicInstruction("add.d D0,D1,D2",
             	 "Floating point addition double precision : Set X2 to double-precision floating point value of X4 plus X6",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000000",
@@ -1311,7 +1311,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub.d X2,X4,X6",
+                new BasicInstruction("sub.d D2,D4,D6",
             	 "Floating point subtraction double precision : Set X2 to double-precision floating point value of X4 minus X6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000001",
@@ -1334,7 +1334,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mul.d X2,X4,X6",
+                new BasicInstruction("mul.d D2,D4,D6",
             	 "Floating point multiplication double precision : Set X2 to double-precision floating point value of X4 times X6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000010",
@@ -1357,7 +1357,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("div.d X2,X4,X6",
+                new BasicInstruction("div.d D2,D4,D6",
             	 "Floating point division double precision : Set X2 to double-precision floating point value of X4 divided by X6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000011",

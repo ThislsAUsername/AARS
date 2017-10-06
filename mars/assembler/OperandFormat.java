@@ -167,7 +167,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                return false;
             }
             if (candType != specType) {
-               generateMessage(candToken, "operand is of incorrect type", errors);
+               generateMessage(candToken, "operand is of incorrect type: " + candType, errors);
                return false;
             }
          }

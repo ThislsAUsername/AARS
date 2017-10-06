@@ -49,22 +49,22 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     public  class Coprocessor1 {
       private static Register [] registers = 
-          { new Register("Xf0", 0, 0),  new Register("Xf1", 1, 0),
-         	new Register("Xf2", 2, 0),  new Register("Xf3", 3, 0),
-         	new Register("Xf4", 4, 0),  new Register("Xf5", 5, 0),
-         	new Register("Xf6", 6, 0),  new Register("Xf7", 7, 0),
-         	new Register("Xf8", 8, 0),  new Register("Xf9", 9, 0),
-         	new Register("Xf10", 10, 0),new Register("Xf11", 11, 0), 
-         	new Register("Xf12", 12, 0),new Register("Xf13", 13, 0),
-         	new Register("Xf14", 14, 0),new Register("Xf15", 15, 0),
-         	new Register("Xf16", 16, 0),new Register("Xf17", 17, 0),
-         	new Register("Xf18", 18, 0),new Register("Xf19", 19, 0),
-         	new Register("Xf20", 20, 0),new Register("Xf21", 21, 0),
-         	new Register("Xf22", 22, 0),new Register("Xf23", 23, 0),
-         	new Register("Xf24", 24, 0),new Register("Xf25", 25, 0),
-         	new Register("Xf26", 26, 0),new Register("Xf27", 27, 0),
-         	new Register("Xf28", 28, 0),new Register("Xf29", 29, 0),
-         	new Register("Xf30", 30, 0),new Register("Xf31", 31, 0)
+          { new Register("D0", 0, 0),  new Register("S1", 1, 0),
+         	new Register("D1", 2, 0),  new Register("S3", 3, 0),
+         	new Register("D2", 4, 0),  new Register("S5", 5, 0),
+         	new Register("D3", 6, 0),  new Register("S7", 7, 0),
+         	new Register("D4", 8, 0),  new Register("S9", 9, 0),
+         	new Register("D5", 10, 0), new Register("S11", 11, 0), 
+         	new Register("D6", 12, 0), new Register("S13", 13, 0),
+         	new Register("D7", 14, 0), new Register("S15", 15, 0),
+         	new Register("D8", 16, 0), new Register("S17", 17, 0),
+         	new Register("D9", 18, 0), new Register("S19", 19, 0),
+         	new Register("D10", 20, 0),new Register("S21", 21, 0),
+         	new Register("D11", 22, 0),new Register("S23", 23, 0),
+         	new Register("D12", 24, 0),new Register("S25", 25, 0),
+         	new Register("D13", 26, 0),new Register("S27", 27, 0),
+         	new Register("D14", 28, 0),new Register("S29", 29, 0),
+         	new Register("D15", 30, 0),new Register("S31", 31, 0)
            };
    	// The 8 condition flags will be stored in bits 0-7 for flags 0-7.
       private static Register condition = new Register("cf",32, 0);	 
@@ -357,14 +357,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    		  **/	
       		
        public static int getRegisterNumber(String n){
-         int j=-1;
-         for (int i=0; i< registers.length; i++){
-            if(registers[i].getName().equals(n)) {
-               j= registers[i].getNumber();
-               break;
-            }
-         } 
-         return j;     
+         return getRegister(n).getNumber();     
       }
       
    	/**
@@ -384,15 +377,25 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    	
        public static Register getRegister(String rName) {
          Register reg = null;
-         if (rName.charAt(0) == 'X' && rName.length() > 1 && rName.charAt(1) == 'f') {
+         if (rName.charAt(0) == 'S' && rName.length() > 1) {
             try {
                    // check for register number 0-31.
-               reg = registers[Binary.stringToInt(rName.substring(2))];    // KENV 1/6/05
+               reg = registers[Binary.stringToInt(rName.substring(1))];    // KENV 1/6/05
             }
                 catch (Exception e) {
-                   // handles both NumberFormat and ArrayIndexOutOfBounds
-                  reg = null; 
+    				// handles both NumberFormat and ArrayIndexOutOfBounds
+    				reg = null;
                }
+         }
+
+         if (rName.charAt(0) == 'D' && rName.length() > 1) {
+			// just do linear search; there aren't that many registers
+			for (int i = 0; i < registers.length; i += 2) {
+				if (rName.equals(registers[i].getName())) {
+					reg = registers[i];
+					break;
+				}
+			}
          }
          return reg;
       }

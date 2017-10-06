@@ -61,7 +61,7 @@
             tokenExamples[Token.LABEL]    = "main:";
             tokenExamples[Token.KEYWORD1] = "lui";
             tokenExamples[Token.KEYWORD2] = ".text";
-            tokenExamples[Token.KEYWORD3] = "$zero";
+            tokenExamples[Token.KEYWORD3] = "XZR";
             tokenExamples[Token.INVALID]  = "\"Regi";
             tokenExamples[Token.MACRO_ARG]= "%arg";
          }
@@ -495,12 +495,13 @@
             mars.mips.hardware.Register[] registerFile = mars.mips.hardware.RegisterFile.getRegisters();
             for (int i=0; i< registerFile.length; i++) {
                cKeywords.add( registerFile[i].getName(), Token.KEYWORD3 );
-               cKeywords.add( "$"+i, Token.KEYWORD3 );  // also recognize $0, $1, $2, etc
+               cKeywords.add( "X"+i, Token.KEYWORD3 );  // also recognize X0, X1, X2, etc
             }
          	// add Coprocessor 1 (floating point) register file
             mars.mips.hardware.Register[] coprocessor1RegisterFile = mars.mips.hardware.Coprocessor1.getRegisters();
             for (int i=0; i< coprocessor1RegisterFile.length; i++) {
                cKeywords.add( coprocessor1RegisterFile[i].getName(), Token.KEYWORD3 );
+               cKeywords.add( "S"+i, Token.KEYWORD3 );  // All the D register labels are names, so we don't need special processing here
             }     
          	// Note: Coprocessor 0 registers referenced only by number: $8, $12, $13, $14. These are already in the map
          
