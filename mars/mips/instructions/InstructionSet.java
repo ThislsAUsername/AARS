@@ -49,6 +49,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       private ArrayList<Instruction> instructionList;
 	  private ArrayList<MatchMap> opcodeMatchMaps;
       private SyscallLoader syscallLoader;
+      private static final String DOUBLE_SIZE_REGISTER_ERROR = "All registers must be even-numbered or use the D0,D1,etc syntax";
     /**
      * Creates a new InstructionSet object.
      */
@@ -1218,8 +1219,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       			
         /////////////////////// Floating Point Instructions Start Here ////////////////
          instructionList.add(
-                new BasicInstruction("add.s S0,S1,S3",
-                "Floating point addition single precision : Set X0 to single-precision floating point value of X1 plus X3", 
+                new BasicInstruction("FADDS S0,S1,S3",
+                "Floating point addition single precision : Set S0 to single-precision floating point value of S1 plus S3", 
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000000",
                 new SimulationCode()
@@ -1240,8 +1241,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub.s S0,S1,S3",
-                "Floating point subtraction single precision : Set X0 to single-precision floating point value of X1  minus X3",
+                new BasicInstruction("FSUBS S0,S1,S3",
+                "Floating point subtraction single precision : Set S0 to single-precision floating point value of S1  minus S3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000001",
                 new SimulationCode()
@@ -1256,8 +1257,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mul.s S0,S1,S3",
-                "Floating point multiplication single precision : Set X0 to single-precision floating point value of X1 times X3",
+                new BasicInstruction("FMULS S0,S1,S3",
+                "Floating point multiplication single precision : Set S0 to single-precision floating point value of S1 times S3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000010",
                 new SimulationCode()
@@ -1272,8 +1273,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("div.s S0,S1,S3",
-                "Floating point division single precision : Set X0 to single-precision floating point value of X1 divided by X3",
+                new BasicInstruction("FDIVS S0,S1,S3",
+                "Floating point division single precision : Set S0 to single-precision floating point value of S1 divided by S3",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10000 ttttt sssss fffff 000011",
                 new SimulationCode()
@@ -1288,8 +1289,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("add.d D0,D1,D2",
-            	 "Floating point addition double precision : Set X2 to double-precision floating point value of X4 plus X6",
+                new BasicInstruction("FADDD D0,D1,D2",
+            	 "Floating point addition double precision : Set D2 to double-precision floating point value of D4 plus D6",
             	 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000000",
                 new SimulationCode()
@@ -1298,7 +1299,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   { 
                      int[] operands = statement.getOperands();
                      if (operands[0]%2==1 || operands[1]%2==1 || operands[2]%2==1) {
-                        throw new ProcessingException(statement, "all registers must be even-numbered");
+                        throw new ProcessingException(statement, DOUBLE_SIZE_REGISTER_ERROR);
                      }
                      double add1 = Double.longBitsToDouble(Binary.twoIntsToLong(
                               Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
@@ -1311,8 +1312,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("sub.d D2,D4,D6",
-            	 "Floating point subtraction double precision : Set X2 to double-precision floating point value of X4 minus X6",
+                new BasicInstruction("FSUBD D2,D4,D6",
+            	 "Floating point subtraction double precision : Set D2 to double-precision floating point value of D4 minus D6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000001",
                 new SimulationCode()
@@ -1321,7 +1322,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   { 
                      int[] operands = statement.getOperands();
                      if (operands[0]%2==1 || operands[1]%2==1 || operands[2]%2==1) {
-                        throw new ProcessingException(statement, "all registers must be even-numbered");
+                        throw new ProcessingException(statement, DOUBLE_SIZE_REGISTER_ERROR);
                      }
                      double sub1 = Double.longBitsToDouble(Binary.twoIntsToLong(
                               Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
@@ -1334,8 +1335,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("mul.d D2,D4,D6",
-            	 "Floating point multiplication double precision : Set X2 to double-precision floating point value of X4 times X6",
+                new BasicInstruction("FMULD D2,D4,D6",
+            	 "Floating point multiplication double precision : Set D2 to double-precision floating point value of D4 times D6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000010",
                 new SimulationCode()
@@ -1344,7 +1345,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   { 
                      int[] operands = statement.getOperands();
                      if (operands[0]%2==1 || operands[1]%2==1 || operands[2]%2==1) {
-                        throw new ProcessingException(statement, "all registers must be even-numbered");
+                        throw new ProcessingException(statement, DOUBLE_SIZE_REGISTER_ERROR);
                      }
                      double mul1 = Double.longBitsToDouble(Binary.twoIntsToLong(
                               Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
@@ -1357,8 +1358,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   }
                }));
          instructionList.add(
-                new BasicInstruction("div.d D2,D4,D6",
-            	 "Floating point division double precision : Set X2 to double-precision floating point value of X4 divided by X6",
+                new BasicInstruction("FDIVD D2,D4,D6",
+            	 "Floating point division double precision : Set D2 to double-precision floating point value of D4 divided by D6",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 ttttt sssss fffff 000011",
                 new SimulationCode()
@@ -1367,7 +1368,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                   { 
                      int[] operands = statement.getOperands();
                      if (operands[0]%2==1 || operands[1]%2==1 || operands[2]%2==1) {
-                        throw new ProcessingException(statement, "all registers must be even-numbered");
+                        throw new ProcessingException(statement, DOUBLE_SIZE_REGISTER_ERROR);
                      }
                      double div1 = Double.longBitsToDouble(Binary.twoIntsToLong(
                               Coprocessor1.getValue(operands[1]+1),Coprocessor1.getValue(operands[1])));
