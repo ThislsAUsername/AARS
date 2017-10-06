@@ -1059,6 +1059,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     public void simulate(ProgramStatement statement) throws ProcessingException
                    {
                       int[] operands = statement.getOperands();
+                      // data validation for LSL
+                      if (operands[2]>3) {
+                          throw new ProcessingException(statement, "Invalid value for LSL");
+                       }
                       // TODO: this will need adjustment for 64bit
                       int imm16 = operands[1] << 16 >> 16;
                       int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
@@ -1075,6 +1079,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      public void simulate(ProgramStatement statement) throws ProcessingException
                     {
                        int[] operands = statement.getOperands();
+                       // data validation for LSL
+                       if (operands[2]>3) {
+                           throw new ProcessingException(statement, "Invalid value for LSL");
+                        }
                        // TODO: this will need adjustment for 64bit
                        int imm16 = operands[1] << 16 >> 16;
                        int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
@@ -1094,6 +1102,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      public void simulate(ProgramStatement statement) throws ProcessingException
                     {
                        int[] operands = statement.getOperands();
+                       // data validation for LSL
+                       if (operands[2]>3) {
+                           throw new ProcessingException(statement, "Invalid value for LSL");
+                        }
                        // TODO: this will need adjustment for 64bit
                        int imm16 = operands[1] << 16 >> 16;
                        int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
@@ -1110,6 +1122,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       public void simulate(ProgramStatement statement) throws ProcessingException
                      {
                         int[] operands = statement.getOperands();
+                        // data validation for LSL
+                        if (operands[2]>3) {
+                            throw new ProcessingException(statement, "Invalid value for LSL");
+                         }
                         // TODO: this will need adjustment for 64bit
                         int imm16 = operands[1] << 16 >> 16;
                         int lsl = (operands[2] << 31 >> 31)*16; // LSL denotes which halfword to shift the value into
