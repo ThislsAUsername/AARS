@@ -49,7 +49,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       private ArrayList<Instruction> instructionList;
 	  private ArrayList<MatchMap> opcodeMatchMaps;
       private SyscallLoader syscallLoader;
-      private static final String DOUBLE_SIZE_REGISTER_ERROR = "All registers must be even-numbered or use the D0,D1,etc syntax";
+      private static final String DOUBLE_SIZE_REGISTER_ERROR = "All floating-point registers must be even-numbered or use the D0,D1,etc syntax";
     /**
      * Creates a new InstructionSet object.
      */
@@ -1380,6 +1380,119 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                      Coprocessor1.updateRegister(operands[0], Binary.lowOrderLongToInt(longQuot));
                   }
                }));
+         instructionList.add(
+                 new BasicInstruction("LDURS S1, [X2,-100]",
+                 "Load Floating Point Single : Set S1 to 32-bit value from effective memory word address",
+             	 BasicInstructionFormat.I_FORMAT,
+                 "110001 ttttt fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   { 
+                      int[] operands = statement.getOperands();
+                      try
+                      {
+                         Coprocessor1.updateRegister(operands[0],
+                             Globals.memory.getWord(
+                             RegisterFile.getValue(operands[1]) + operands[2]));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                   }
+                }));		 
+          instructionList.add(
+                  new BasicInstruction("LDURD D1, [X2,-100]",
+             	 "Load Floating Point Double : Set D1 to 64-bit value from effective memory doubleword address",
+                 BasicInstructionFormat.I_FORMAT,
+                 "110101 ttttt fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   { 
+                      int[] operands = statement.getOperands();
+                      if (operands[0]%2==1) {
+                         throw new ProcessingException(statement, DOUBLE_SIZE_REGISTER_ERROR);
+                      }
+                   	// IF statement added by DPS 13-July-2011.
+                      if (!Globals.memory.doublewordAligned(RegisterFile.getValue(operands[1]) + operands[2])) {
+                         throw new ProcessingException(statement,
+                            new AddressErrorException("address not aligned on doubleword boundary ",
+                            Exceptions.ADDRESS_EXCEPTION_LOAD, RegisterFile.getValue(operands[1]) + operands[2]));
+                      }
+                                     
+                      try
+                      {
+                         Coprocessor1.updateRegister(operands[0],
+                             Globals.memory.getWord(
+                             RegisterFile.getValue(operands[1]) + operands[2]));
+                         Coprocessor1.updateRegister(operands[0]+1,
+                             Globals.memory.getWord(
+                             RegisterFile.getValue(operands[1]) + operands[2] + 4));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                   }
+                }));	 
+          instructionList.add(
+                  new BasicInstruction("STURS S1, [X2,-100]",
+             	 "Store Floating Point Single : Store 32 bit value in S1 to effective memory word address",
+                 BasicInstructionFormat.I_FORMAT,
+                 "111001 ttttt fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   { 
+                      int[] operands = statement.getOperands();
+                      try
+                      {
+                         Globals.memory.setWord(
+                             RegisterFile.getValue(operands[1]) + operands[2],
+                             Coprocessor1.getValue(operands[0]));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                   }
+                }));
+          instructionList.add(
+                  new BasicInstruction("STURD D1, [X2,-100]",
+             	 "Store Floating Point Double : Store 64 bit value in D1 to effective memory doubleword address",
+                 BasicInstructionFormat.I_FORMAT,
+                 "111101 ttttt fffff ssssssssssssssss",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   { 
+                      int[] operands = statement.getOperands();
+                      if (operands[0]%2==1) {
+                         throw new ProcessingException(statement, DOUBLE_SIZE_REGISTER_ERROR);
+                      }
+                   	// IF statement added by DPS 13-July-2011.
+                      if (!Globals.memory.doublewordAligned(RegisterFile.getValue(operands[1]) + operands[2])) {
+                         throw new ProcessingException(statement,
+                            new AddressErrorException("address not aligned on doubleword boundary ",
+                            Exceptions.ADDRESS_EXCEPTION_STORE, RegisterFile.getValue(operands[1]) + operands[2]));
+                      }
+                      try
+                      {
+                         Globals.memory.setWord(
+                             RegisterFile.getValue(operands[1]) + operands[2],
+                             Coprocessor1.getValue(operands[0]));
+                         Globals.memory.setWord(
+                             RegisterFile.getValue(operands[1]) + operands[2] + 4,
+                             Coprocessor1.getValue(operands[0]+1));
+                      } 
+                          catch (AddressErrorException e)
+                         {
+                            throw new ProcessingException(statement, e);
+                         }
+                   }
+                }));
          instructionList.add(
                 new BasicInstruction("c.eq.s X0,X1",
                 "Compare equal single precision : If X0 is equal to X1, set Coprocessor 1 condition flag 0 true else set it false",
