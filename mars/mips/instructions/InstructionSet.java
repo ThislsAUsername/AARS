@@ -638,7 +638,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.EQ target", 
-              	 "Branch on Equal: Jump to statement at target address if Zero flag is true",
+              	 "Branch on Equal: Jump to statement at target address if Zero flag is true; flags=x1xx",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -656,7 +656,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.NE target", 
-              	 "Branch on NOT equal: Jump to statement at target address if Zero flag is false",
+              	 "Branch on NOT equal: Jump to statement at target address if Zero flag is false; flags=x0xx",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -674,7 +674,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.CS target", 
-              	 "Branch on Carry Set: Jump to statement at target address if Carry flag is true",
+              	 "Branch on Carry Set: Jump to statement at target address if Carry flag is true; flags=xxx1",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -692,7 +692,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.HS target", 
-              	 "Branch on Unsigned Higher/Same: Jump to statement at target address if Carry flag is true",
+              	 "Branch on Unsigned Higher/Same: Jump to statement at target address if Carry flag is true; flags=xxx1",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -710,7 +710,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.CC target", 
-              	 "Branch on Carry Clear: Jump to statement at target address if Carry flag is false",
+              	 "Branch on Carry Clear: Jump to statement at target address if Carry flag is false; flags=xxx0",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -728,7 +728,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.LO target", 
-              	 "Branch on Unsigned Lower: Jump to statement at target address if Carry flag is false",
+              	 "Branch on Unsigned Lower: Jump to statement at target address if Carry flag is false; flags=xxx0",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -746,7 +746,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.MI target", 
-              	 "Branch on Minus: Jump to statement at target address if Negative flag is true",
+              	 "Branch on Minus: Jump to statement at target address if Negative flag is true; flags=1xxx",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -764,7 +764,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.PL target", 
-              	 "Branch on Plus: Jump to statement at target address if Negative flag is false",
+              	 "Branch on Plus: Jump to statement at target address if Negative flag is false; flags=0xxx",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -782,7 +782,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.VS target", 
-              	 "Branch on Overflow: Jump to statement at target address if oVerflow flag is true",
+              	 "Branch on Overflow: Jump to statement at target address if oVerflow flag is true; flags=xx1x",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -800,7 +800,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.VC target", 
-              	 "Branch on No overflow: Jump to statement at target address if oVerflow flag is false",
+              	 "Branch on No overflow: Jump to statement at target address if oVerflow flag is false; flags=xx0x",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -818,7 +818,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.HI target", 
-              	 "Branch on Unsigned Higher: Jump to statement at target address if Carry is true and Zero is false",
+              	 "Branch on Unsigned Higher: Jump to statement at target address if Carry is true and Zero is false; flags=x0x1",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -836,7 +836,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.LS target", 
-              	 "Branch on Unsigned Lower or Same: Jump to statement at target address if Carry is false or Zero is true",
+              	 "Branch on Unsigned Lower or Same: Jump to statement at target address if Carry is false or Zero is true; flags=xxx0||x1xx",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -854,7 +854,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.GE target", 
-              	 "Branch on Signed Greater Than/Equal: Jump to statement at target address if Negative and oVerflow have the same value",
+              	 "Branch on Signed Greater Than/Equal: Jump to statement at target address if Negative and oVerflow have the same value; flags=1x1x||0x0x",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -872,7 +872,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.GT target", 
-              	 "Branch on Signed Greater Than: Jump to statement at target address if Negative and oVerflow have the same value, and Zero is false",
+              	 "Branch on Signed Greater Than: Jump to statement at target address if Negative and oVerflow have the same value, and Zero is false; flags=101x||000x",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -890,7 +890,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.LT target", 
-              	 "Branch on Signed Less Than: Jump to statement at target address if Negative and oVerflow have different values",
+              	 "Branch on Signed Less Than: Jump to statement at target address if Negative and oVerflow have different values; flags=1x0x||0x1x",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -908,7 +908,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                  }));
           instructionList.add(
                   new BasicInstruction("B.LE target", 
-              	 "Branch on Signed Less Than/Equal: Jump to statement at target address if Negative and oVerflow have different values, or if Zero is true",
+              	 "Branch on Signed Less Than/Equal: Jump to statement at target address if Negative and oVerflow have different values, or if Zero is true; flags=1x0x||0x1x||x1xx",
               	 BasicInstructionFormat.J_FORMAT,
                   "000010 ffffffffffffffffffffffffff",
                   new SimulationCode()
@@ -1495,8 +1495,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 }));
          instructionList.add(
                 new BasicInstruction("FCMPS S0,S1",
-                "Floating point compare single : If ==, flags=0110. If <, flags=1000. If >, flags=0010. If either operand is invalid, flags=0001.",
-            	 BasicInstructionFormat.R_FORMAT,
+                "Floating point compare single : If equal, flags=0110. If less than, flags=1000. If greater than, flags=0010. If either operand is invalid, flags=0001.",
+            	BasicInstructionFormat.R_FORMAT,
                 "010001 10000 sssss fffff 00000 110010",
                 new SimulationCode()
                {
@@ -1527,7 +1527,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                }));
          instructionList.add(
                 new BasicInstruction("FCMPD D0,D1",
-                "Floating point compare double : If ==, flags=0110. If <, flags=1000. If >, flags=0010. If either operand is invalid, flags=0001.",
+                "Floating point compare double : If equal, flags=0110. If less than, flags=1000. If greater than, flags=0010. If either operand is invalid, flags=0001.",
                 BasicInstructionFormat.R_FORMAT,
                 "010001 10001 sssss fffff 00000 110010",
                 new SimulationCode()
