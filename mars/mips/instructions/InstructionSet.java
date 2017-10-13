@@ -560,6 +560,19 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                    }
                 }));
          instructionList.add(
+                 new BasicInstruction("B -100", 
+             	 "Branch unconditionally : Jump a number of instructions forward equal to the specified immediate",
+             	 BasicInstructionFormat.R_FORMAT,
+                 "000010 ffffffffffffffffffffffffff",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      processJump(RegisterFile.getProgramCounter() + (operands[0]*4)-4);            
+                   }
+                }));
+         instructionList.add(
                  new BasicInstruction("B.AL target", 
              	 "Branch always : Jump to statement at target address",
              	 BasicInstructionFormat.J_FORMAT,
@@ -572,6 +585,19 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       processJump(
                          ((RegisterFile.getProgramCounter() & 0xF0000000)
                                  | (operands[0] << 2)));            
+                   }
+                }));
+         instructionList.add(
+                 new BasicInstruction("B.AL -100", 
+             	 "Branch unconditionally : Jump a number of instructions forward equal to the specified immediate",
+             	 BasicInstructionFormat.R_FORMAT,
+                 "000010 ffffffffffffffffffffffffff",
+                 new SimulationCode()
+                {
+                    public void simulate(ProgramStatement statement) throws ProcessingException
+                   {
+                      int[] operands = statement.getOperands();
+                      processJump(RegisterFile.getProgramCounter() + (operands[0]*4)-4);            
                    }
                 }));
           instructionList.add(
@@ -621,6 +647,22 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     }
                  }));
           instructionList.add(
+                  new BasicInstruction("CBNZ X1,-100", 
+              	 "Conditional branch not zero : If X1 is NOT zero, jump a number of instructions forward equal to the specified immediate",
+              	 BasicInstructionFormat.I_BRANCH_FORMAT,
+                 "000001 fffff 00000 ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       if (RegisterFile.getValue(operands[0]) != 0)
+                       {
+                    	   processJump(RegisterFile.getProgramCounter() + (operands[1]*4)-4);
+                       }        
+                    }
+                 }));
+          instructionList.add(
                   new BasicInstruction("CBZ X1,label",
                   "Conditional branch zero : Branch to statement at label's address if X1 is zero",
               	 BasicInstructionFormat.I_BRANCH_FORMAT,
@@ -634,6 +676,22 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                        {
                           processBranch(operands[1]);
                        }
+                    }
+                 }));
+          instructionList.add(
+                  new BasicInstruction("CBZ X1,-100", 
+              	 "Conditional branch zero : If X1 is zero, jump a number of instructions forward equal to the specified immediate",
+              	 BasicInstructionFormat.I_BRANCH_FORMAT,
+                 "000001 fffff 00000 ssssssssssssssss",
+                  new SimulationCode()
+                 {
+                     public void simulate(ProgramStatement statement) throws ProcessingException
+                    {
+                       int[] operands = statement.getOperands();
+                       if (RegisterFile.getValue(operands[0]) == 0)
+                       {
+                    	   processJump(RegisterFile.getProgramCounter() + (operands[1]*4)-4);
+                       }        
                     }
                  }));
           instructionList.add(
